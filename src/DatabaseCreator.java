@@ -3,12 +3,14 @@ import DAO.SpecialityDao;
 import TableModels.SpecialityTableModel;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseCreator extends JDialog {
+
+public class DatabaseCreator extends JDialog implements ActionListener{
     private final int WINDOW_WIDTH = 600, WINDOW_HEIGHT = 450;
 
     private JPanel contentPane;
@@ -18,14 +20,22 @@ public class DatabaseCreator extends JDialog {
     private JButton coursesButton;
     private JButton specialitiesButton;
     private JButton teachersButton;
-    private JButton classesButton;
+    private JButton disciplinesButton;
     private JButton groupsButton;
     private JPanel tablePanel;
     private JButton saveChangesButton;
+    private JButton teacherDisciplinesButton;
+    private JButton auditoriesButton;
+    private JButton groupDisciplineTeacherButton;
+
+    private enum  Table {Courses, Specialities, Groups
+        , Teachers, Disciplines, TeacherDisciplines
+        , Auditoriums, GroupDisciplineTeacher
+    }
 
     private JTable editableTable;
     private List<?> tableData;
-
+    private Table currTableState;
 
     public DatabaseCreator() {
         initMainPanel();
@@ -45,23 +55,67 @@ public class DatabaseCreator extends JDialog {
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        saveChangesButton.addActionListener(e -> {
-            if(tableData == null || tableData.isEmpty()){
+        specialitiesButton.addActionListener(this);
+        coursesButton.addActionListener(this);
+        groupsButton.addActionListener(this);
+        teachersButton.addActionListener(this);
+        disciplinesButton.addActionListener(this);
+        auditoriesButton.addActionListener(this);
+        groupDisciplineTeacherButton.addActionListener(this);
+
+        saveChangesButton.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String clickedButton = e.getActionCommand();
+        if(clickedButton.equals("Courses")){
+
+        }else if(clickedButton.equals("Specialities")){
+            currTableState = Table.Specialities;
+            tableData = new SpecialityDao().getAll(); //fill table data
+            editableTable.setModel(new SpecialityTableModel((List<Speciality>) tableData));
+            if(tablePanel.getComponentCount() >= 2)
+                tablePanel.remove(1);
+            tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel
+
+        }else if(clickedButton.equals("Groups")){
+
+        }else if(clickedButton.equals("Teachers")){
+
+        }else if(clickedButton.equals("Disciplines")){
+
+        }else if(clickedButton.equals("Teacher-Disciplines")){
+
+        }else if(clickedButton.equals("Auditoriums")){
+
+        }else if(clickedButton.equals("Group-Discipline-Teacher")){
+
+
+        }else if(clickedButton.equals("Save changes")) {
+            if(tableData == null){
                 return;
             }
 
-            if(tableData.get(0) instanceof Speciality){
+            if(currTableState == Table.Courses){
+            }else if(currTableState == Table.Specialities){
                 new SpecialityDao().saveAll((List<Speciality>) tableData);
+            }else if(currTableState == Table.Groups){
+
+            }else if(currTableState == Table.Teachers){
+
+            }else if(currTableState == Table.Disciplines) {
+
+            }else if(currTableState == Table.TeacherDisciplines){
+
+            }else if(currTableState == Table.Auditoriums){
+
+            }else if(currTableState == Table.GroupDisciplineTeacher){
+
             }
-        });
-        specialitiesButton.addActionListener(e -> {
-            // create table
-            tableData = new SpecialityDao().getAll(); //fill table data
-            editableTable = new JTable(new SpecialityTableModel((List<Speciality>) tableData));
-            tablePanel.removeAll();
-            tablePanel.add(new JScrollPane(editableTable)); // add the table to the root panel
-            revalidate();
-        });
+        }
+
+        revalidate();
     }
 
     private void initMainPanel() {
@@ -76,6 +130,31 @@ public class DatabaseCreator extends JDialog {
         setBounds(400, 200, WINDOW_WIDTH, WINDOW_HEIGHT);
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
+        // add button to create possibility add new rows in table
+        JButton addRowButton = new JButton("Add new raw");
+        addRowButton.setFocusPainted(false);
+        addRowButton.setBorder(new LineBorder(Color.BLACK));
+        tablePanel.add(addRowButton, BorderLayout.PAGE_END);
+
+        editableTable = new JTable();
+        editableTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(SwingUtilities.isRightMouseButton(e)){
+                    //TODO: Popup menu
+//                    JPopupMenu popup;
+//                    popup = new JPopupMenu();
+//                    JMenuItem item;
+//                    popup.add(item = new JMenuItem("Left"));
+//                    item.setHorizontalTextPosition(JMenuItem.RIGHT);
+//                    popup.show(DatabaseCreator.this, e.getX(), e.getY());
+                    System.out.println("Popup menu " + e.getPoint());
+                }
+                super.mouseClicked(e);
+            }
+        });
+
+        // click on Specialities after form loads
         var timer = new Timer(100, e -> {
             specialitiesButton.doClick();
         });
@@ -96,6 +175,5 @@ public class DatabaseCreator extends JDialog {
     private void createUIComponents() {
         tablePanel = new JPanel();
         tablePanel.setLayout(new BorderLayout(10,10));
-        // TODO: place custom component creation code here
     }
 }

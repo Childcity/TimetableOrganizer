@@ -2,7 +2,6 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Optional;
 public class SpecialityDao implements Dao<Speciality> {
     private static final class SqlQuery{
         final static String DROP_SPECIALITY = "DROP TABLE IF EXISTS speciality;";
-        final static String CREAT_SPECIALITY =
+        final static String CREATE_SPECIALITY =
                     "CREATE TABLE IF NOT EXISTS speciality(\n" +
                     "   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
                     "   spec_name TEXT CHARSET utf8mb4 NOT NULL,\n" +
@@ -36,7 +35,7 @@ public class SpecialityDao implements Dao<Speciality> {
 
     public static void Create () throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.DROP_SPECIALITY);
-        Database.getInstance().ExecuteWriteQuery(SqlQuery.CREAT_SPECIALITY);
+        Database.getInstance().ExecuteWriteQuery(SqlQuery.CREATE_SPECIALITY);
     }
 
     public SpecialityDao() {

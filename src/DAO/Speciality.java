@@ -10,13 +10,13 @@ public class Speciality {
         id_ = numericName_ = -1;
     }
 
-    Speciality(int id, String specName, int numericName){
+    public Speciality(int id, String specName, int numericName){
         id_ = id;
         specName_ = specName;
         numericName_ = numericName;
     }
 
-    Speciality(String specName, int numericName){
+    public Speciality(String specName, int numericName){
         id_ = -1;
         specName_ = specName;
         numericName_ = numericName;

@@ -3,7 +3,7 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="4" y="54" width="480" height="322"/>
+      <xy x="4" y="54" width="619" height="419"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -90,6 +90,39 @@
                   <text value="Specialities"/>
                 </properties>
               </component>
+              <component id="828f3" class="javax.swing.JButton" binding="disciplinesButton" default-binding="true">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Disciplines"/>
+                </properties>
+              </component>
+              <component id="dfd24" class="javax.swing.JButton" binding="saveChangesButton" default-binding="true">
+                <constraints>
+                  <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Save changes"/>
+                </properties>
+              </component>
+              <vspacer id="1ce9c">
+                <constraints>
+                  <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="3.0"/>
+                </constraints>
+              </vspacer>
+              <component id="38445" class="javax.swing.JButton" binding="groupsButton" default-binding="true">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Groups"/>
+                </properties>
+              </component>
               <component id="7dcd3" class="javax.swing.JButton" binding="teachersButton" default-binding="true">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -99,39 +132,33 @@
                   <text value="Teachers"/>
                 </properties>
               </component>
-              <component id="38445" class="javax.swing.JButton" binding="groupsButton" default-binding="true">
+              <component id="1f7d9" class="javax.swing.JButton" binding="teacherDisciplinesButton" default-binding="true">
                 <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <text value="Groups"/>
+                  <text value="Teacher-Disciplines"/>
                 </properties>
               </component>
-              <component id="828f3" class="javax.swing.JButton" binding="classesButton" default-binding="true">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <text value="Classes"/>
-                </properties>
-              </component>
-              <component id="dfd24" class="javax.swing.JButton" binding="saveChangesButton" default-binding="true">
+              <component id="56ec1" class="javax.swing.JButton" binding="auditoriesButton" default-binding="true">
                 <constraints>
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <text value="Save changes"/>
+                  <text value="Auditoriums"/>
                 </properties>
               </component>
-              <vspacer id="1ce9c">
+              <component id="e5770" class="javax.swing.JButton" binding="groupDisciplineTeacherButton" default-binding="true">
                 <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="3.0"/>
+                  <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
-              </vspacer>
+                <properties>
+                  <text value="Group-Discipline-Teacher"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>
