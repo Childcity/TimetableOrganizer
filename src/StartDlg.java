@@ -1,3 +1,5 @@
+import DAO.DatabaseException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -76,9 +78,18 @@ public class StartDlg extends JDialog {
                 int result = dbPathChooser.showSaveDialog(null);
                 if(result == JFileChooser.APPROVE_OPTION){ // if user pressed OK and entered path to new db
                     updateFilePath();
-                    DatabaseCreator dbCreator = new DatabaseCreator();
-                    dbCreator.pack();
-                    dbCreator.setVisible(true);
+
+                    try {
+                        DAO.Database.setDbPath(dbPath);
+                        DAO.Database.getInstance().Create();
+
+                        DatabaseCreator dbCreator = new DatabaseCreator();
+                        dbCreator.pack();
+                        dbCreator.setVisible(true);
+                    } catch (DatabaseException ex) {
+                        System.out.println(ex.getMessage());
+                        //e.printStackTrace();
+                    }
                 }
             }
 
