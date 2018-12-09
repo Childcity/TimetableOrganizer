@@ -3,19 +3,6 @@ package DAO;
 import java.sql.*;
 import java.util.Objects;
 
-class SqlQuery {
-    public final String DROP_TIMETABLE = "DROP TABLE IF EXISTS timetable;";
-    public final String DROP_TEACHER_DISCIPLINE = "DROP TABLE IF EXISTS teacher_discipline;";
-    public final String DROP_GROUP_DISCIPLINE_TEACHER = "DROP TABLE IF EXISTS group_discipline_teacher;";
-    public final String DROP_GROUPS = "DROP TABLE IF EXISTS groups;";
-    public final String DROP_COURSES = "DROP TABLE IF EXISTS courses;";
-    public final String DROP_TEACHER = "DROP TABLE IF EXISTS teachers;";
-    public final String DROP_DISCIPLINES = "DROP TABLE IF EXISTS disciplines;";
-    public final String DROP_DAYS = "DROP TABLE IF EXISTS days;";
-    public final String DROP_LESSONS = "DROP TABLE IF EXISTS lessons;";
-    public final String DROP_AUDIT = "DROP TABLE IF EXISTS audit;";
-}
-
 public class Database {
     private static String dbPath = null;
 
@@ -66,7 +53,7 @@ public class Database {
         }
     }
 
-    static Dao<Speciality> dao = new SpecialityDao();
+    private static Dao dao = new SpecialityDao();
     public void Create() throws DatabaseException {
         try {
             SpecialityDao.Create();
@@ -75,10 +62,18 @@ public class Database {
             dao.save(new Speciality("Math", 111));
             dao.save(new Speciality("Physics", 112));
             dao.save(new Speciality("Ukrmova", 117));
+
+            CourseDao.Create();
+            System.out.println("Created table 'course'");
+            dao = new CourseDao();
+            dao.save(new Course("First"));
+            dao.save(new Course("Second"));
+            dao.save(new Course("Third"));
+
             //dao.getAll().forEach(speciality -> System.out.println(speciality.getNumericName()+speciality.getSpecName()));
         } catch (Exception e){
             System.out.println(e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
             throw new DatabaseException("Fail to create database");
         }
     }

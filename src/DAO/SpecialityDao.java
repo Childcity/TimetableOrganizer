@@ -76,9 +76,7 @@ public class SpecialityDao implements Dao<Speciality> {
 
     @Override
     public void saveAll(List<Speciality> list) {
-        for (var it : list) {
-            save(it);
-        }
+        list.forEach(this::save);
     }
 
     @Override

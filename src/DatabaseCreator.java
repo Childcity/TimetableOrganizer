@@ -1,10 +1,12 @@
+import DAO.Course;
 import DAO.Speciality;
+import DAO.CourseDao;
 import DAO.SpecialityDao;
+import TableModels.CourseTableModel;
 import TableModels.SpecialityTableModel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.text.Utilities;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -69,35 +71,14 @@ public class DatabaseCreator extends JDialog implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String clickedButton = e.getActionCommand();
-        if(clickedButton.equals("Courses")){
 
-        }else if(clickedButton.equals("Specialities")){
-            currTableState = Table.Specialities;
-            tableData = new SpecialityDao().getAll(); //fill table data
-            editableTable.setModel(new SpecialityTableModel((List<Speciality>) tableData));
-            if(tablePanel.getComponentCount() >= 2)
-                tablePanel.remove(1);
-            tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel
-
-        }else if(clickedButton.equals("Groups")){
-
-        }else if(clickedButton.equals("Teachers")){
-
-        }else if(clickedButton.equals("Disciplines")){
-
-        }else if(clickedButton.equals("Teacher-Disciplines")){
-
-        }else if(clickedButton.equals("Auditoriums")){
-
-        }else if(clickedButton.equals("Group-Discipline-Teacher")){
-
-
-        }else if(clickedButton.equals("Save changes")) {
+        if(clickedButton.equals("Save changes")) {
             if(tableData == null){
                 return;
             }
 
             if(currTableState == Table.Courses){
+                new CourseDao().saveAll((List<Course>) tableData);
             }else if(currTableState == Table.Specialities){
                 new SpecialityDao().saveAll((List<Speciality>) tableData);
             }else if(currTableState == Table.Groups){
@@ -113,8 +94,37 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             }else if(currTableState == Table.GroupDisciplineTeacher){
 
             }
+            return;
         }
 
+        if(clickedButton.equals("Courses")){
+            currTableState = Table.Courses;
+            tableData = new CourseDao().getAll(); //fill table data
+            editableTable.setModel(new CourseTableModel((List<Course>) tableData));
+
+        }else if(clickedButton.equals("Specialities")){
+            currTableState = Table.Specialities;
+            tableData = new SpecialityDao().getAll(); //fill table data
+            editableTable.setModel(new SpecialityTableModel((List<Speciality>) tableData));
+
+        }else if(clickedButton.equals("Groups")){
+
+        }else if(clickedButton.equals("Teachers")){
+
+        }else if(clickedButton.equals("Disciplines")){
+
+        }else if(clickedButton.equals("Teacher-Disciplines")){
+
+        }else if(clickedButton.equals("Auditoriums")){
+
+        }else if(clickedButton.equals("Group-Discipline-Teacher")){
+
+
+        }
+
+        if(tablePanel.getComponentCount() >= 2)
+            tablePanel.remove(1);
+        tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel
         revalidate();
     }
 
