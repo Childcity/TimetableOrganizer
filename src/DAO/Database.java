@@ -1,6 +1,12 @@
 package DAO;
 
+import Data.Course;
+import Data.Group;
+import Data.Speciality;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Database {
@@ -16,6 +22,10 @@ public class Database {
     public static String getDbPath() {return dbPath;}
     public static void setDbPath(String dbPath) {Database.dbPath = dbPath;}
 
+    public interface QueryParser{
+        public <T> List<T> parse(ResultSet resultSet) throws SQLException;
+    }
+
     public Connection OpenConnection() throws DatabaseException {
         Connection conn = null;
 
@@ -24,6 +34,9 @@ public class Database {
             //System.out.println("Connection Url: " + connectionUrl);
             Class.forName("org.sqlite.JDBC"); // setup an sqlite driver, which we use
             conn = DriverManager.getConnection(connectionUrl);
+            Statement stmt = conn.createStatement();
+            stmt.execute("PRAGMA foreign_keys = ON");
+            CloseStatement(stmt);
         } catch (Exception e) {
             //e.printStackTrace();
             throw new DatabaseException("Fail to open connection: " + e.getMessage());
@@ -53,9 +66,13 @@ public class Database {
         }
     }
 
-    private static Dao dao = new SpecialityDao();
     public void Create() throws DatabaseException {
         try {
+            Dao dao = new SpecialityDao();
+            GroupDao.Drop();
+            SpecialityDao.Drop();
+            CourseDao.Drop();
+
             SpecialityDao.Create();
             System.out.println("Created table 'speciality'");
 
@@ -70,6 +87,12 @@ public class Database {
             dao.save(new Course("Second"));
             dao.save(new Course("Third"));
 
+            GroupDao.Create();
+            System.out.println("Created table 'group'");
+            dao = new GroupDao();
+            dao.save(new Group("TP-62", 25, new CourseDao().getAll().get(0), new SpecialityDao().getAll().get(0)));
+            dao.save(new Group("TM-51", 17, new CourseDao().getAll().get(2), new SpecialityDao().getAll().get(2)));
+            dao.save(new Group("TK-13", 27, new CourseDao().getAll().get(1), new SpecialityDao().getAll().get(1)));
             //dao.getAll().forEach(speciality -> System.out.println(speciality.getNumericName()+speciality.getSpecName()));
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -96,6 +119,31 @@ public class Database {
             CloseStatement(stmt);
             CloseConnection(conn);
         }
+    }
+
+    public <T> List<T> ExecuteReadQuery(QueryParser queryParser, String query) {
+        List<T> resultArr = new ArrayList<T>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet resultSet;
+
+        try {
+            conn = Database.getInstance().OpenConnection();
+            stmt = conn.createStatement();
+
+            resultSet = stmt.executeQuery(query);
+            resultArr = queryParser.parse(resultSet);
+
+            CloseStatement(stmt);
+            CloseConnection(conn);
+        } catch (Exception e) {
+            System.out.println("ExecuteReadQuery fail: " + e.getMessage());
+        } finally {
+            Database.getInstance().CloseStatement(stmt);
+            Database.getInstance().CloseConnection(conn);
+        }
+
+        return resultArr;
     }
 
 

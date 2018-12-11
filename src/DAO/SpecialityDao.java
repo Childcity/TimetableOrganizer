@@ -1,5 +1,7 @@
 package DAO;
 
+import Data.Speciality;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -33,8 +35,11 @@ public class SpecialityDao implements Dao<Speciality> {
         static String DELETE(long id){ return String.format("DELETE FROM speciality WHERE id = '%d'", id); }
     }
 
-    public static void Create () throws DatabaseException {
+    public  static void Drop() throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.DROP_SPECIALITY);
+    }
+
+    public static void Create () throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.CREATE_SPECIALITY);
     }
 

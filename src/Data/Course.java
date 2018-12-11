@@ -1,4 +1,4 @@
-package DAO;
+package Data;
 
 public class Course {
     private int id_;
@@ -35,4 +35,7 @@ public class Course {
         this.courseName_ = specName_;
     }
 
+    public String toString(){
+        return getCourseName();
+    }
 }

@@ -1,9 +1,6 @@
-import DAO.Course;
-import DAO.Speciality;
-import DAO.CourseDao;
-import DAO.SpecialityDao;
-import TableModels.CourseTableModel;
-import TableModels.SpecialityTableModel;
+import DAO.*;
+import Data.*;
+import TableModels.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -82,7 +79,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             }else if(currTableState == Table.Specialities){
                 new SpecialityDao().saveAll((List<Speciality>) tableData);
             }else if(currTableState == Table.Groups){
-
+                new GroupDao().saveAll((List<Group>) tableData);
             }else if(currTableState == Table.Teachers){
 
             }else if(currTableState == Table.Disciplines) {
@@ -101,13 +98,23 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             currTableState = Table.Courses;
             tableData = new CourseDao().getAll(); //fill table data
             editableTable.setModel(new CourseTableModel((List<Course>) tableData));
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Courses"));
 
         }else if(clickedButton.equals("Specialities")){
             currTableState = Table.Specialities;
             tableData = new SpecialityDao().getAll(); //fill table data
             editableTable.setModel(new SpecialityTableModel((List<Speciality>) tableData));
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Specialities"));
 
         }else if(clickedButton.equals("Groups")){
+            currTableState = Table.Groups;
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Groups"));
+            tableData = new GroupDao().getAll(); //fill table data
+            editableTable.setModel(new GroupTableModel((List<Group>) tableData));
+            editableTable.setDefaultRenderer(Course.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(Course.class, new ComboBoxCellEditor<>(new CourseDao().getAll()));
+            editableTable.setDefaultRenderer(Speciality.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(Speciality.class, new ComboBoxCellEditor<>(new SpecialityDao().getAll()));
 
         }else if(clickedButton.equals("Teachers")){
 
@@ -147,6 +154,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         tablePanel.add(addRowButton, BorderLayout.PAGE_END);
 
         editableTable = new JTable();
+        editableTable.setRowHeight(20);
         editableTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -166,7 +174,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         // click on Specialities after form loads
         var timer = new Timer(100, e -> {
-            specialitiesButton.doClick();
+            coursesButton.doClick();
         });
         timer.setRepeats(false);
         timer.start();

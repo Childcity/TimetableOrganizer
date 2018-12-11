@@ -1,5 +1,7 @@
 package DAO;
 
+import Data.Course;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -14,7 +16,7 @@ public class CourseDao implements Dao<Course> {
         final static String CREATE_COURSE =
                     "CREATE TABLE IF NOT EXISTS course( " +
                     "   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                    "   course_name TEXT CHARSET utf8mb4 NOT NULL" +
+                    "   course_name TEXT CHARSET utf8mb4 NOT NULL UNIQUE" +
                     ");";
         static String SELECT_BY_ID(long id) { return String.format("SELECT * FROM course WHERE id = '%d'", id); }
         final static String SELECT_ALL = "SELECT * FROM course;";
@@ -32,8 +34,11 @@ public class CourseDao implements Dao<Course> {
         static String DELETE(long id){ return String.format("DELETE FROM course WHERE id = '%d';", id); }
     }
 
-    public static void Create () throws DatabaseException {
+    public  static void Drop() throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.DROP_COURSE);
+    }
+
+    public static void Create () throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.CREATE_COURSE);
     }
 

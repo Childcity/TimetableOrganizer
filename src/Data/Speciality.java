@@ -1,4 +1,4 @@
-package DAO;
+package Data;
 
 public class Speciality {
     private int id_;
@@ -44,5 +44,9 @@ public class Speciality {
 
     public void setNumericName(int numericName_) {
         this.numericName_ = numericName_;
+    }
+
+    public String toString(){
+        return getSpecName();
     }
 }

@@ -1,6 +1,6 @@
 package TableModels;
 
-import DAO.Speciality;
+import Data.Speciality;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
