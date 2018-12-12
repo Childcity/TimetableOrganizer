@@ -68,6 +68,7 @@ public class Database {
         try {
             Dao dao = new SpecialityDao();
             GroupDao.Drop();
+            TeacherDisciplineDao.Drop();
             DisciplineDao.Drop();
             SpecialityDao.Drop();
             CourseDao.Drop();
@@ -109,7 +110,13 @@ public class Database {
             dao.save(new Discipline("Physics", 16, new DisciplineType(DisciplineType.GetDisciplines().get(2)+""), new SpecialityDao().getAll().get(1)));
             dao.save(new Discipline("Ukrmova", 15, new DisciplineType(DisciplineType.GetDisciplines().get(1)+""), new SpecialityDao().getAll().get(1)));
 
-
+            TeacherDisciplineDao.Create();
+            System.out.println("Created table 'teacher_discipline'");
+            dao = new TeacherDisciplineDao();
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(0)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(1)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(2)));
+            //dao.save(new TeacherDiscipline(new Teacher("Vova", "Lysyi"), dis4));
             //dao.getAll().forEach(speciality -> System.out.println(speciality.getNumericName()+speciality.getSpecName()));
         } catch (Exception e){
             System.out.println(e.getMessage());

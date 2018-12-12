@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="TimetableOrganizer:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="f498cee9-1691-49f6-9693-064503bd00c0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Data/DisciplineType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/SpecialityDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/SpecialityDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DatabaseCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TableModels/CourseTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TableModels/CourseTableModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TableModels/SpecialityCellEditor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TableModels/SpecialityCellRenderer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TableModels/SpecialityTableModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TableModels/SpecialityTableModel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,11 +59,11 @@
           <provider selected="true" editor-type-id="ui-designer" />
         </entry>
       </file>
-      <file leaf-file-name="DatabaseCreator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DatabaseCreator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DatabaseCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="135" column="108" selection-start-line="135" selection-start-column="108" selection-end-line="135" selection-end-column="108" />
+            <state relative-caret-position="51">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeacherTableModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TableModels/TeacherTableModel.java">
+      <file leaf-file-name="StartDlg.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/StartDlg.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="68" column="12" lean-forward="true" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+            <state relative-caret-position="119">
+              <caret line="25" column="8" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,11 +83,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CourseTableModel.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/TableModels/CourseTableModel.java">
+      <file leaf-file-name="Discipline.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Data/Discipline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="79" column="5" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
+            <state relative-caret-position="351">
+              <caret line="68" column="36" selection-start-line="68" selection-start-column="36" selection-end-line="68" selection-end-column="36" />
+              <folding>
+                <element signature="e#1526#1527#0" expanded="true" />
+                <element signature="e#1582#1583#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DisciplineTableModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TableModels/DisciplineTableModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1002">
+              <caret line="83" column="9" lean-forward="true" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#523#524#0" expanded="true" />
+                <element signature="e#569#570#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/DAO/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="114" column="45" lean-forward="true" selection-start-line="114" selection-start-column="45" selection-end-line="114" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,8 +153,9 @@
       <find>Course</find>
       <find>Teacher</find>
       <find>teacher</find>
-      <find>Group</find>
       <find>disciplineі</find>
+      <find>specialityId</find>
+      <find>Group</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -141,6 +171,8 @@
       <replace>discipline</replace>
       <replace>Teacher</replace>
       <replace>disciplines</replace>
+      <replace>disciplineId</replace>
+      <replace>TeacherDiscipline</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -158,8 +190,6 @@
         <option value="$PROJECT_DIR$/src/TableModels/getTableData.java" />
         <option value="$PROJECT_DIR$/src/TableModels/TableData.java" />
         <option value="$PROJECT_DIR$/src/DAO/Dao.java" />
-        <option value="$PROJECT_DIR$/src/StartDlg.java" />
-        <option value="$PROJECT_DIR$/src/DatabaseCreator.form" />
         <option value="$PROJECT_DIR$/src/DAO/Course.java" />
         <option value="$PROJECT_DIR$/src/DAO/Speciality.java" />
         <option value="$PROJECT_DIR$/src/DAO/Group.java" />
@@ -180,16 +210,21 @@
         <option value="$PROJECT_DIR$/src/DAO/SpecialityDao.java" />
         <option value="$PROJECT_DIR$/src/DAO/GroupDao.java" />
         <option value="$PROJECT_DIR$/src/DAO/TeacherDao.java" />
-        <option value="$PROJECT_DIR$/src/Data/Discipline.java" />
         <option value="$PROJECT_DIR$/src/DAO/DisciplineDao.java" />
-        <option value="$PROJECT_DIR$/src/DatabaseCreator.java" />
-        <option value="$PROJECT_DIR$/src/DAO/Database.java" />
         <option value="$PROJECT_DIR$/src/Data/DisciplineType.java" />
         <option value="$PROJECT_DIR$/src/TableModels/DisciplineTableModel.java" />
         <option value="$PROJECT_DIR$/src/TableModels/SpecialityTableModel.java" />
         <option value="$PROJECT_DIR$/src/TableModels/GroupTableModel.java" />
         <option value="$PROJECT_DIR$/src/TableModels/TeacherTableModel.java" />
         <option value="$PROJECT_DIR$/src/TableModels/CourseTableModel.java" />
+        <option value="$PROJECT_DIR$/src/Data/TeacherDiscipline.java" />
+        <option value="$PROJECT_DIR$/src/DAO/TeacherDisciplineDao.java" />
+        <option value="$PROJECT_DIR$/src/DAO/Database.java" />
+        <option value="$PROJECT_DIR$/src/TableModels/TeacherDisciplineTableModel.java" />
+        <option value="$PROJECT_DIR$/src/DatabaseCreator.form" />
+        <option value="$PROJECT_DIR$/src/Data/Discipline.java" />
+        <option value="$PROJECT_DIR$/src/StartDlg.java" />
+        <option value="$PROJECT_DIR$/src/DatabaseCreator.java" />
       </list>
     </option>
   </component>
@@ -209,10 +244,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1814" />
-    <option name="y" value="-87" />
-    <option name="width" value="1920" />
-    <option name="height" value="1043" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1098" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -251,6 +286,18 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="TableModels" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="TimetableOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TimetableOrganizer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DatabaseCreator" type="e9f4de52:FormNode" />
+            </path>
+            <path>
+              <item name="TimetableOrganizer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TimetableOrganizer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="StartDlg" type="e9f4de52:FormNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -271,11 +318,11 @@
     <property name="last_opened_file_path" value="D:/Programs/Java/ExternalLibs/sqlite-jdbc-3.7.2.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -364,7 +411,7 @@
       <workItem from="1544091592504" duration="14962000" />
       <workItem from="1544227431047" duration="16247000" />
       <workItem from="1544288483043" duration="51642000" />
-      <workItem from="1544521885526" duration="28244000" />
+      <workItem from="1544521885526" duration="36794000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1543880798244</created>
@@ -415,11 +462,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544537057694</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add Teacher, Discipline. Tested">
+      <created>1544614258731</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1544614258731</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169886000" />
+    <option name="totallyTimeSpent" value="178436000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -431,30 +485,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1927" y="-85" width="1550" height="848" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.23154363" side_tool="true" visible="true" weight="0.3941504" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.23288591" side_tool="true" visible="true" weight="0.36908078" />
       <window_info anchor="right" id="Maven Projects" order="8" weight="0.3295302" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="5" sideWeight="0.49800798" visible="true" weight="0.10134228" />
+      <window_info anchor="right" id="Database" order="5" sideWeight="0.49800798" visible="true" weight="0.09261745" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24966443" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.39972144" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4986979" weight="0.11605938" />
-      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.4818792" weight="0.31337047" />
+      <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.47919464" weight="0.038997214" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49798658" weight="0.1908078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7684564" visible="true" weight="0.3941504" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7671141" visible="true" weight="0.36908078" />
       <window_info anchor="right" id="Coverage" sideWeight="0.50199205" side_tool="true" weight="0.37919462" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4966443" weight="0.26880223" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2785235" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26107383" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49798658" weight="0.2270195" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info id="Favorites" order="5" side_tool="true" />
@@ -508,7 +562,8 @@
     <MESSAGE value="spec_id, course_id" />
     <MESSAGE value="Special, Course" />
     <MESSAGE value="Special, Course cell edit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Special, Course cell edit" />
+    <MESSAGE value="add Teacher, Discipline. Tested" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Teacher, Discipline. Tested" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -520,41 +575,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.desktop/javax/swing/event/ListSelectionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="40" column="17" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.desktop/java/awt/event/MouseAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.desktop/javax/swing/JPopupMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="923" column="16" selection-start-line="923" selection-start-column="16" selection-end-line="923" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://7a403b18-9890-4330-bfd6-413ccefe8a92/schema/main/table/speciality">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.base/java/util/function/Consumer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.sql/java/sql/ResultSet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -599,16 +619,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/StartDlg.form">
       <provider selected="true" editor-type-id="ui-designer" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/StartDlg.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.base/jdk/internal/util/Preconditions.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -696,16 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TableModels/ComboBoxCellRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TableModels/ComboBoxCellEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -727,9 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DatabaseCreator.form">
-      <provider selected="true" editor-type-id="ui-designer" />
-    </entry>
     <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.desktop/java/awt/GridLayout.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
@@ -749,13 +746,6 @@
             <element signature="e#668#669#0" expanded="true" />
             <element signature="e#706#707#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/CourseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
         </state>
       </provider>
     </entry>
@@ -827,13 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/GroupDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1484">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://7a403b18-9890-4330-bfd6-413ccefe8a92/schema/main/table/discipline">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -841,47 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/TeacherDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="96" column="19" lean-forward="true" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Data/Discipline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="59" column="27" lean-forward="true" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
-          <folding>
-            <element signature="e#622#623#0" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
-            <element signature="e#733#734#0" expanded="true" />
-            <element signature="e#759#760#0" expanded="true" />
-            <element signature="e#785#786#0" expanded="true" />
-            <element signature="e#1288#1289#0" expanded="true" />
-            <element signature="e#1322#1323#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.desktop/javax/swing/JTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="2754" selection-start-line="2754" selection-end-line="2754" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DAO/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="109" column="111" selection-start-line="109" selection-start-column="111" selection-end-line="109" selection-end-column="111" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -924,16 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TableModels/DisciplineTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TableModels/SpecialityTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="458">
@@ -944,19 +880,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DatabaseCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="135" column="108" selection-start-line="135" selection-start-column="108" selection-end-line="135" selection-end-column="108" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TableModels/TeacherTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="578">
           <caret line="68" column="12" lean-forward="true" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -966,8 +892,161 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TableModels/CourseTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="79" column="5" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
+        <state relative-caret-position="462">
+          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/TeacherDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="96" column="19" lean-forward="true" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/CourseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-256">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/GroupDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1433">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Programs/Java/jdk-10.0.1/lib/src.zip!/java.base/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="1833" column="18" selection-start-line="1833" selection-start-column="18" selection-end-line="1833" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Data/TeacherDiscipline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+          <folding>
+            <element signature="e#369#370#0" expanded="true" />
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#504#505#0" expanded="true" />
+            <element signature="e#551#552#0" expanded="true" />
+            <element signature="e#590#591#0" expanded="true" />
+            <element signature="e#1561#1562#0" expanded="true" />
+            <element signature="e#1587#1588#0" expanded="true" />
+            <element signature="e#1622#1623#0" expanded="true" />
+            <element signature="e#1652#1653#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://7a403b18-9890-4330-bfd6-413ccefe8a92/schema/main/table/teacher_discipline">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TableModels/TeacherDisciplineTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+          <folding>
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#775#776#0" expanded="true" />
+            <element signature="e#848#849#0" expanded="true" />
+            <element signature="e#908#909#0" expanded="true" />
+            <element signature="e#961#962#0" expanded="true" />
+            <element signature="e#1002#1003#0" expanded="true" />
+            <element signature="e#1052#1053#0" expanded="true" />
+            <element signature="e#1101#1102#0" expanded="true" />
+            <element signature="e#2498#2499#0" expanded="true" />
+            <element signature="e#2536#2537#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DatabaseCreator.form">
+      <provider selected="true" editor-type-id="ui-designer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/TeacherDisciplineDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="51" column="11" selection-start-line="51" selection-start-column="11" selection-end-line="51" selection-end-column="11" />
+          <folding>
+            <element signature="e#3773#3774#0" expanded="true" />
+            <element signature="e#3813#3814#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DAO/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="114" column="45" lean-forward="true" selection-start-line="114" selection-start-column="45" selection-end-line="114" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TableModels/DisciplineTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1002">
+          <caret line="83" column="9" lean-forward="true" selection-start-line="83" selection-start-column="9" selection-end-line="83" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
+            <element signature="e#569#570#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TableModels/ComboBoxCellRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Data/Discipline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="68" column="36" selection-start-line="68" selection-start-column="36" selection-end-line="68" selection-end-column="36" />
+          <folding>
+            <element signature="e#1526#1527#0" expanded="true" />
+            <element signature="e#1582#1583#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/StartDlg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="25" column="8" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DatabaseCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -977,10 +1056,12 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <last-edited>TimetableOrganizer:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TimetableOrganizer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TimetableOrganizer_jar</output-path>
+    <root id="archive" name="TimetableOrganizer.jar">
+      <element id="module-output" name="TimetableOrganizer" />
+      <element id="extracted-dir" path="D:/Programs/Java/ExternalLibs/sqlite-jdbc-3.7.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="sqlite-jdbc-3.7.2" />
+    </root>
+  </artifact>
+</component>

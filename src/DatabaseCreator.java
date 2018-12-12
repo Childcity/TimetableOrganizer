@@ -3,6 +3,7 @@ import Data.*;
 import TableModels.*;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -58,6 +59,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         groupsButton.addActionListener(this);
         teachersButton.addActionListener(this);
         disciplinesButton.addActionListener(this);
+        teacherDisciplinesButton.addActionListener(this);
         auditoriesButton.addActionListener(this);
         groupDisciplineTeacherButton.addActionListener(this);
 
@@ -89,6 +91,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
                 new DisciplineDao().saveAll((List<Discipline>) tableData);
 
             }else if(currTableState == Table.TeacherDisciplines){
+                new TeacherDisciplineDao().saveAll((List<TeacherDiscipline>) tableData);
 
             }else if(currTableState == Table.Auditoriums){
 
@@ -125,6 +128,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             tablePanel.setBorder(BorderFactory.createTitledBorder("Teachers"));
             tableData = new TeacherDao().getAll(); //fill table data
             editableTable.setModel(new TeacherTableModel((List<Teacher>) tableData));
+
         }else if(clickedButton.equals("Disciplines")){
             currTableState = Table.Disciplines;
             tablePanel.setBorder(BorderFactory.createTitledBorder("Disciplines"));
@@ -136,6 +140,14 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             editableTable.setDefaultEditor(DisciplineType.class, new ComboBoxCellEditor<>(DisciplineType.GetDisciplines()));
 
         }else if(clickedButton.equals("Teacher-Disciplines")){
+            currTableState = Table.TeacherDisciplines;
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Teacher-Disciplines"));
+            tableData = new TeacherDisciplineDao().getAll(); //fill table data
+            editableTable.setModel(new TeacherDisciplineTableModel((List<TeacherDiscipline>) tableData));
+            editableTable.setDefaultRenderer(Teacher.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(Teacher.class, new ComboBoxCellEditor<>(new TeacherDao().getAll()));
+            editableTable.setDefaultRenderer(Discipline.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(Discipline.class, new ComboBoxCellEditor<>(new DisciplineDao().getAll()));
 
         }else if(clickedButton.equals("Auditoriums")){
 
@@ -144,9 +156,9 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         }
 
-        if(tablePanel.getComponentCount() >= 1)
-            tablePanel.remove(0);
-        tablePanel.add(new JScrollPane(editableTable)); // add the table to the root panel
+        if(tablePanel.getComponentCount() >= 2)
+            tablePanel.remove(1);
+        tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel
         revalidate();
     }
 
@@ -162,11 +174,11 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         setBounds(400, 200, WINDOW_WIDTH, WINDOW_HEIGHT);
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-        // add button to create possibility add new rows in table
-//        JButton addRowButton = new JButton("Add new raw");
-//        addRowButton.setFocusPainted(false);
-//        addRowButton.setBorder(new LineBorder(Color.BLACK));
-//        tablePanel.add(addRowButton, BorderLayout.PAGE_END);
+         //add button to create possibility add new rows in table
+        JButton addRowButton = new JButton("Add new raw");
+        addRowButton.setFocusPainted(false);
+        addRowButton.setBorder(new LineBorder(Color.BLACK));
+        tablePanel.add(addRowButton, BorderLayout.PAGE_END);
 
         editableTable = new JTable();
         editableTable.setRowHeight(20);
@@ -207,7 +219,6 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
     private void createUIComponents() {
         tablePanel = new JPanel();
-        tablePanel.setLayout(new GridLayout());
-//        tablePanel.setLayout(new BorderLayout(10,10));
+        tablePanel.setLayout(new BorderLayout(10,10));
     }
 }
