@@ -66,7 +66,7 @@ public class CourseTableModel extends AbstractTableModel implements TableData<Co
         Course row = courses.get(rowIndex);
 
         if(0 == columnIndex) {
-            //row.setId((Integer)aValue);
+            row.setId((Integer)aValue);
         }
         else if(1 == columnIndex) {
             row.setCourseName((String) aValue);
@@ -76,7 +76,7 @@ public class CourseTableModel extends AbstractTableModel implements TableData<Co
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex)
     {
-        return true;
+        return columnIndex > 0;
     }
 
     @Override

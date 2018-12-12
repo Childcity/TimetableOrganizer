@@ -3,7 +3,6 @@ import Data.*;
 import TableModels.*;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -76,13 +75,18 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
             if(currTableState == Table.Courses){
                 new CourseDao().saveAll((List<Course>) tableData);
+
             }else if(currTableState == Table.Specialities){
                 new SpecialityDao().saveAll((List<Speciality>) tableData);
+
             }else if(currTableState == Table.Groups){
                 new GroupDao().saveAll((List<Group>) tableData);
-            }else if(currTableState == Table.Teachers){
 
-            }else if(currTableState == Table.Disciplines) {
+            }else if(currTableState == Table.Teachers){
+                new TeacherDao().saveAll((List<Teacher>) tableData);
+
+            }else if(currTableState == Table.Disciplines){
+                new DisciplineDao().saveAll((List<Discipline>) tableData);
 
             }else if(currTableState == Table.TeacherDisciplines){
 
@@ -117,8 +121,19 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             editableTable.setDefaultEditor(Speciality.class, new ComboBoxCellEditor<>(new SpecialityDao().getAll()));
 
         }else if(clickedButton.equals("Teachers")){
-
+            currTableState = Table.Teachers;
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Teachers"));
+            tableData = new TeacherDao().getAll(); //fill table data
+            editableTable.setModel(new TeacherTableModel((List<Teacher>) tableData));
         }else if(clickedButton.equals("Disciplines")){
+            currTableState = Table.Disciplines;
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Disciplines"));
+            tableData = new DisciplineDao().getAll(); //fill table data
+            editableTable.setModel(new DisciplineTableModel((List<Discipline>) tableData));
+            editableTable.setDefaultRenderer(Speciality.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(Speciality.class, new ComboBoxCellEditor<>(new SpecialityDao().getAll()));
+            editableTable.setDefaultRenderer(DisciplineType.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(DisciplineType.class, new ComboBoxCellEditor<>(DisciplineType.GetDisciplines()));
 
         }else if(clickedButton.equals("Teacher-Disciplines")){
 
@@ -129,9 +144,9 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         }
 
-        if(tablePanel.getComponentCount() >= 2)
-            tablePanel.remove(1);
-        tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel
+        if(tablePanel.getComponentCount() >= 1)
+            tablePanel.remove(0);
+        tablePanel.add(new JScrollPane(editableTable)); // add the table to the root panel
         revalidate();
     }
 
@@ -148,10 +163,10 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
         // add button to create possibility add new rows in table
-        JButton addRowButton = new JButton("Add new raw");
-        addRowButton.setFocusPainted(false);
-        addRowButton.setBorder(new LineBorder(Color.BLACK));
-        tablePanel.add(addRowButton, BorderLayout.PAGE_END);
+//        JButton addRowButton = new JButton("Add new raw");
+//        addRowButton.setFocusPainted(false);
+//        addRowButton.setBorder(new LineBorder(Color.BLACK));
+//        tablePanel.add(addRowButton, BorderLayout.PAGE_END);
 
         editableTable = new JTable();
         editableTable.setRowHeight(20);
@@ -192,6 +207,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
     private void createUIComponents() {
         tablePanel = new JPanel();
-        tablePanel.setLayout(new BorderLayout(10,10));
+        tablePanel.setLayout(new GridLayout());
+//        tablePanel.setLayout(new BorderLayout(10,10));
     }
 }

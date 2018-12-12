@@ -14,10 +14,10 @@ public class SpecialityDao implements Dao<Speciality> {
     private static final class SqlQuery{
         final static String DROP_SPECIALITY = "DROP TABLE IF EXISTS speciality;";
         final static String CREATE_SPECIALITY =
-                    "CREATE TABLE IF NOT EXISTS speciality(\n" +
-                    "   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
-                    "   spec_name TEXT CHARSET utf8mb4 NOT NULL,\n" +
-                    "   numeric_name INT(2) NOT NULL UNIQUE\n" +
+                    "CREATE TABLE IF NOT EXISTS speciality( " +
+                    "   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "   spec_name TEXT CHARSET utf8mb4 NOT NULL, " +
+                    "   numeric_name INT(2) NOT NULL UNIQUE " +
                     ");";
         static String SELECT_BY_ID(long id) { return String.format("SELECT * FROM speciality WHERE id = '%d'", id); }
         final static String SELECT_ALL = "SELECT * FROM speciality;";

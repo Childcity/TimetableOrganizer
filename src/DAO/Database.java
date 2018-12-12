@@ -1,8 +1,6 @@
 package DAO;
 
-import Data.Course;
-import Data.Group;
-import Data.Speciality;
+import Data.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,15 +68,17 @@ public class Database {
         try {
             Dao dao = new SpecialityDao();
             GroupDao.Drop();
+            DisciplineDao.Drop();
             SpecialityDao.Drop();
             CourseDao.Drop();
+            TeacherDao.Drop();
 
             SpecialityDao.Create();
             System.out.println("Created table 'speciality'");
 
-            dao.save(new Speciality("Math", 111));
-            dao.save(new Speciality("Physics", 112));
-            dao.save(new Speciality("Ukrmova", 117));
+            dao.save(new Speciality("Comp Nauki", 111));
+            dao.save(new Speciality("Sistem Analize", 112));
+            dao.save(new Speciality("Gumanitariy", 117));
 
             CourseDao.Create();
             System.out.println("Created table 'course'");
@@ -93,6 +93,23 @@ public class Database {
             dao.save(new Group("TP-62", 25, new CourseDao().getAll().get(0), new SpecialityDao().getAll().get(0)));
             dao.save(new Group("TM-51", 17, new CourseDao().getAll().get(2), new SpecialityDao().getAll().get(2)));
             dao.save(new Group("TK-13", 27, new CourseDao().getAll().get(1), new SpecialityDao().getAll().get(1)));
+
+            TeacherDao.Create();
+            System.out.println("Created table 'teachers'");
+            dao = new TeacherDao();
+            dao.save(new Teacher("Andrey", "Durdunov"));
+            dao.save(new Teacher("Sanya", "Spektr"));
+            dao.save(new Teacher("Vova", "Lysyi"));
+
+            DisciplineDao.Create();
+            System.out.println("Created table 'discipline'");
+            dao = new DisciplineDao();
+            dao.save(new Discipline("Math", 48, new DisciplineType(DisciplineType.GetDisciplines().get(0)+""), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("Math", 24, new DisciplineType(DisciplineType.GetDisciplines().get(1)+""), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("Physics", 16, new DisciplineType(DisciplineType.GetDisciplines().get(2)+""), new SpecialityDao().getAll().get(1)));
+            dao.save(new Discipline("Ukrmova", 15, new DisciplineType(DisciplineType.GetDisciplines().get(1)+""), new SpecialityDao().getAll().get(1)));
+
+
             //dao.getAll().forEach(speciality -> System.out.println(speciality.getNumericName()+speciality.getSpecName()));
         } catch (Exception e){
             System.out.println(e.getMessage());
