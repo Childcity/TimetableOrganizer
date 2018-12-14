@@ -19,8 +19,8 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
                 "   id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "   teacher_id INTEGER NOT NULL, " +
                 "   discipline_id INTEGER NOT NULL, " +
-                "   FOREIGN KEY (teacher_id) REFERENCES course(id), " +
-                "   FOREIGN KEY (discipline_id) REFERENCES speciality(id)" +
+                "   FOREIGN KEY (teacher_id) REFERENCES `teacher`(id) ON DELETE CASCADE, " +
+                "   FOREIGN KEY (discipline_id) REFERENCES `discipline`(id) ON DELETE CASCADE" +
                 ");";
         static String SELECT_BY_ID(long id) { return String.format("SELECT * FROM `teacher_discipline` WHERE id = '%d'", id); }
         final static String SELECT_ALL = "SELECT * FROM `teacher_discipline`;";
@@ -38,8 +38,8 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
         static String DELETE(long id){ return String.format("DELETE FROM `teacher_discipline` WHERE id = '%d'", id); }
     }
 
-    private List<Teacher> teachers;
-    private List<Discipline> disciplines;
+    private Dao teacherDao;
+    private Dao disciplineDao;
 
     public static void Drop() throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.DROP_TEACHER_DISCIPLINE);
@@ -50,8 +50,8 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
     }
 
     public TeacherDisciplineDao() {
-        teachers = new TeacherDao().getAll();
-        disciplines = new DisciplineDao().getAll();
+        teacherDao = new TeacherDao();
+        disciplineDao = new DisciplineDao();
     }
 
     @Override
@@ -60,8 +60,8 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
         while (resultSet.next()){
             teachersDisciplines.add(new TeacherDiscipline(
                     resultSet.getInt("id"),
-                    teachers.get(resultSet.getInt("teacher_id") - 1),
-                    disciplines.get(resultSet.getInt("discipline_id") - 1)
+                    (Teacher) teacherDao.getById(resultSet.getInt("teacher_id")).orElse(new Teacher()),
+                    (Discipline) disciplineDao.getById(resultSet.getInt("discipline_id")).orElse(new Discipline())
             ));
         }
         return (List<T>) teachersDisciplines;
@@ -117,9 +117,12 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
     @Override
     public void update(TeacherDiscipline teacherDiscipline, String[] params) {
         try {
+            Teacher newTeacher = (Teacher) teacherDao.getById(Integer.parseInt(params[1])).orElse(new Teacher());
+            Discipline newDiscipline = (Discipline) disciplineDao.getById(Integer.parseInt(params[2])).orElse(new Discipline());
+
             teacherDiscipline.setId(Integer.parseInt(params[0]));
-            teacherDiscipline.setTeacher(teachers.get(Integer.parseInt(params[1]) - 1));
-            teacherDiscipline.setDiscipline(disciplines.get(Integer.parseInt(params[2]) - 1));
+            teacherDiscipline.setTeacher(newTeacher);
+            teacherDiscipline.setDiscipline(newDiscipline);
 
             Database.getInstance().ExecuteWriteQuery(
                     SqlQuery.UPDATE(teacherDiscipline.getId(), teacherDiscipline.getTeacher().getId(), teacherDiscipline.getDiscipline().getId())

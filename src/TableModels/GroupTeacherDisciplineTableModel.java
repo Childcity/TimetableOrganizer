@@ -1,24 +1,22 @@
 package TableModels;
 
 import DAO.Dao;
-import DAO.GroupDao;
-import Data.Course;
-import Data.Group;
-import Data.Speciality;
+import DAO.GroupTeacherDisciplineDao;
+import Data.*;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public class GroupTableModel extends AbstractTableModel implements TableData<Group>
+public class GroupTeacherDisciplineTableModel extends AbstractTableModel implements TableData<GroupTeacherDiscipline>
 {
-    private final List<Group> groups;
+    private final List<GroupTeacherDiscipline> groupTeacherDisciplines;
 
     private final String[] columnNames = new String[] {
-            "Id", "Group Name", "Students Number", "Course", "Speciality"
+            "Id", "Group", "Teacher-Discipline"
     };
 
-    public GroupTableModel(List<Group> groups) {
-        this.groups = groups;
+    public GroupTeacherDisciplineTableModel(List<GroupTeacherDiscipline> groupTeacherDisciplines) {
+        this.groupTeacherDisciplines = groupTeacherDisciplines;
     }
 
     @Override
@@ -42,29 +40,23 @@ public class GroupTableModel extends AbstractTableModel implements TableData<Gro
     @Override
     public int getRowCount()
     {
-        return groups.size();
+        return groupTeacherDisciplines.size();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)
     {
         //Speciality row = specialityDao.getById(rowIndex + 1).orElse(new Speciality());
-        Group row = groups.get(rowIndex);
+        GroupTeacherDiscipline row = groupTeacherDisciplines.get(rowIndex);
 
         if(0 == columnIndex) {
             return row.getId();
         }
         else if(1 == columnIndex) {
-            return row.getGroupName();
+            return row.getGroup();
         }
         else if(2 == columnIndex) {
-            return row.getStudentsNumber();
-        }
-        else if(3 == columnIndex) {
-            return row.getCourse();
-        }
-        else if(4 == columnIndex) {
-            return row.getSpeciality();
+            return row.getTeacherDiscipline();
         }
 
         return null;
@@ -73,22 +65,16 @@ public class GroupTableModel extends AbstractTableModel implements TableData<Gro
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex)
     {
-        Group row = groups.get(rowIndex);
+        GroupTeacherDiscipline row = groupTeacherDisciplines.get(rowIndex);
 
         if(0 == columnIndex) {
             row.setId((Integer)aValue);
         }
         else if(1 == columnIndex) {
-            row.setGroupName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
+            row.setGroup((Group) aValue);
         }
         else if(2 == columnIndex) {
-            row.setStudentsNumber((Integer) aValue);
-        }
-        else if(3 == columnIndex) {
-            row.setCourse((Course) aValue);
-        }
-        else if(4 == columnIndex) {
-            row.setSpeciality((Speciality) aValue);
+            row.setTeacherDiscipline((TeacherDiscipline) aValue);
         }
     }
 
@@ -99,17 +85,17 @@ public class GroupTableModel extends AbstractTableModel implements TableData<Gro
     }
 
     @Override
-    public List<Group> getTableData() {
-        return groups;
+    public List<GroupTeacherDiscipline> getTableData() {
+        return groupTeacherDisciplines;
     }
 
     @Override
-    public Group getNewRow() {
-        return new Group();
+    public GroupTeacherDiscipline getNewRow() {
+        return new GroupTeacherDiscipline();
     }
 
     @Override
-    public Dao<Group> getDao() {
-        return new GroupDao();
+    public Dao<GroupTeacherDiscipline> getDao() {
+        return new GroupTeacherDisciplineDao();
     }
 }

@@ -179,7 +179,7 @@ public class Database {
             CloseStatement(stmt);
             CloseConnection(conn);
         } catch (Exception e) {
-            System.out.println("ExecuteReadQuery fail: " + e.getMessage());
+            System.out.println("ExecuteReadQuery fail: " + e.getMessage() + " ("+query+")");
         } finally {
             Database.getInstance().CloseStatement(stmt);
             Database.getInstance().CloseConnection(conn);

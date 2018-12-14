@@ -1,5 +1,7 @@
 package TableModels;
 
+import DAO.Dao;
+import DAO.DisciplineDao;
 import Data.Discipline;
 import Data.DisciplineType;
 import Data.Speciality;
@@ -105,6 +107,16 @@ public class DisciplineTableModel extends AbstractTableModel implements TableDat
     @Override
     public List<Discipline> getTableData() {
         return disciplines;
+    }
+
+    @Override
+    public Discipline getNewRow() {
+        return new Discipline();
+    }
+
+    @Override
+    public Dao<Discipline> getDao() {
+        return new DisciplineDao();
     }
 
     private boolean checkDisciplineName(String newDiscipline, int rowIndex, int columnIndex){

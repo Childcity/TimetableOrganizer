@@ -3,7 +3,10 @@ import Data.*;
 import TableModels.*;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -70,6 +73,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        editableTable.setRowHeight(20);
         String clickedButton = e.getActionCommand();
 
         if(clickedButton.equals("Save changes")) {
@@ -77,31 +81,37 @@ public class DatabaseCreator extends JDialog implements ActionListener{
                 return;
             }
 
-            if(currTableState == Table.Courses){
-                new CourseDao().saveAll((List<Course>) tableData);
+            TableData tableDataRef = (TableData) editableTable.getModel();
+            List tableDataList = tableDataRef.getTableData();
+            tableDataRef.getDao().saveAll(tableDataList);
 
-            }else if(currTableState == Table.Specialities){
-                new SpecialityDao().saveAll((List<Speciality>) tableData);
 
-            }else if(currTableState == Table.Groups){
-                new GroupDao().saveAll((List<Group>) tableData);
-
-            }else if(currTableState == Table.Teachers){
-                new TeacherDao().saveAll((List<Teacher>) tableData);
-
-            }else if(currTableState == Table.Disciplines){
-
-                new DisciplineDao().saveAll((List<Discipline>) tableData);
-
-            }else if(currTableState == Table.TeacherDisciplines){
-                new TeacherDisciplineDao().saveAll((List<TeacherDiscipline>) tableData);
-
-            }else if(currTableState == Table.Auditoriums){
-                new AuditoriumDao().saveAll((List<Auditorium>) tableData);
-
-            }else if(currTableState == Table.GroupTeacherDiscipline){
-                new GroupTeacherDisciplineDao().saveAll((List<GroupTeacherDiscipline>) tableData);
-            }
+//            if(currTableState == Table.Courses){
+//                new CourseDao().saveAll((List<Course>) tableData);
+//                coursesButton.doClick();
+//
+//            }else if(currTableState == Table.Specialities){
+//                new SpecialityDao().saveAll((List<Speciality>) tableData);
+//
+//            }else if(currTableState == Table.Groups){
+//                new GroupDao().saveAll((List<Group>) tableData);
+//
+//            }else if(currTableState == Table.Teachers){
+//                new TeacherDao().saveAll((List<Teacher>) tableData);
+//
+//            }else if(currTableState == Table.Disciplines){
+//
+//                new DisciplineDao().saveAll((List<Discipline>) tableData);
+//
+//            }else if(currTableState == Table.TeacherDisciplines){
+//                new TeacherDisciplineDao().saveAll((List<TeacherDiscipline>) tableData);
+//
+//            }else if(currTableState == Table.Auditoriums){
+//                new AuditoriumDao().saveAll((List<Auditorium>) tableData);
+//
+//            }else if(currTableState == Table.GroupTeacherDiscipline){
+//                new GroupTeacherDisciplineDao().saveAll((List<GroupTeacherDiscipline>) tableData);
+//            }
             return;
         }
 
@@ -195,24 +205,21 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         JButton addRowButton = new JButton("Add new raw");
         addRowButton.setFocusPainted(false);
         addRowButton.setBorder(new LineBorder(Color.BLACK));
+        addRowButton.addActionListener(e -> {
+            List tableData = ((TableData) editableTable.getModel()).getTableData();
+            tableData.add(((TableData) editableTable.getModel()).getNewRow());
+            editableTable.revalidate();
+        });
         tablePanel.add(addRowButton, BorderLayout.PAGE_END);
 
         editableTable = new JTable();
-        editableTable.setRowHeight(20);
         editableTable.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                if(SwingUtilities.isRightMouseButton(e)){
-                    //TODO: Popup menu
-//                    JPopupMenu popup;
-//                    popup = new JPopupMenu();
-//                    JMenuItem item;
-//                    popup.add(item = new JMenuItem("Left"));
-//                    item.setHorizontalTextPosition(JMenuItem.RIGHT);
-//                    popup.show(DatabaseCreator.this, e.getX(), e.getY());
-                    System.out.println("Popup menu " + e.getPoint());
+            public void mouseClicked(MouseEvent evt) {
+                if(SwingUtilities.isRightMouseButton(evt)){
+                    showPopupMenu(evt);
                 }
-                super.mouseClicked(e);
+                super.mouseClicked(evt);
             }
         });
 
@@ -237,5 +244,54 @@ public class DatabaseCreator extends JDialog implements ActionListener{
     private void createUIComponents() {
         tablePanel = new JPanel();
         tablePanel.setLayout(new BorderLayout(10,10));
+    }
+
+    private void showPopupMenu(MouseEvent ev){
+        int row = editableTable.rowAtPoint(ev.getPoint());
+        int col = editableTable.columnAtPoint(ev.getPoint());
+
+        JPopupMenu popup = new JPopupMenu();
+        PopupMenuActionListener actionListener = new PopupMenuActionListener(editableTable, row, col);
+        JMenuItem itemAddRow = new JMenuItem("Add new row");
+        JMenuItem itemDeleteRow = new JMenuItem("Delete row");
+
+        itemAddRow.addActionListener(actionListener);
+        itemDeleteRow.addActionListener(actionListener);
+
+        popup.add(itemAddRow);
+        popup.add(itemDeleteRow);
+
+        itemAddRow.setHorizontalTextPosition(JMenuItem.LEFT);
+        popup.setBorder(new BevelBorder(BevelBorder.RAISED));
+        popup.show(DatabaseCreator.this, ev.getX(), ev.getY() + 80);
+        //System.out.println("Popup menu " + ev.getPoint());
+    }
+}
+
+class PopupMenuActionListener implements ActionListener{
+    private JTable editableTable;
+    private int rowIndex, columnIndex;
+
+    PopupMenuActionListener(JTable editableTable_, int rowIndex_, int columnIndex_){
+        editableTable = editableTable_;
+        rowIndex = rowIndex_;
+        columnIndex = columnIndex_;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String clickedItem = e.getActionCommand();
+        TableData tableDataRef = (TableData) editableTable.getModel();
+        List tableDataList = tableDataRef.getTableData();
+
+        if(clickedItem.equals("Add new row")){
+            tableDataList.add(tableDataRef.getNewRow());
+
+        }else if(clickedItem.equals("Delete row")){
+            tableDataRef.getDao().delete(tableDataList.get(rowIndex));
+        }
+
+        editableTable.revalidate();
+        editableTable.repaint();
     }
 }

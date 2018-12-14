@@ -1,22 +1,23 @@
 package TableModels;
 
+import DAO.AuditoriumDao;
 import DAO.Dao;
-import DAO.TeacherDao;
-import Data.Teacher;
+import Data.Auditorium;
+import Data.AuditoriumType;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public class TeacherTableModel extends AbstractTableModel implements TableData<Teacher>
+public class AuditoriumTableModel extends AbstractTableModel implements TableData<Auditorium>
 {
-    private final List<Teacher> teachers;
+    private final List<Auditorium> auditoriums;
 
     private final String[] columnNames = new String[] {
-            "Id", "First Name", "Last Name"
+            "Id", "Auditorium Number", "Capacity", "Auditorium Type"
     };
 
-    public TeacherTableModel(List<Teacher> teachers) {
-        this.teachers = teachers;
+    public AuditoriumTableModel(List<Auditorium> auditoriums) {
+        this.auditoriums = auditoriums;
     }
 
     @Override
@@ -40,23 +41,26 @@ public class TeacherTableModel extends AbstractTableModel implements TableData<T
     @Override
     public int getRowCount()
     {
-        return teachers.size();
+        return auditoriums.size();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex)
     {
         //Speciality row = specialityDao.getById(rowIndex + 1).orElse(new Speciality());
-        Teacher row = teachers.get(rowIndex);
+        Auditorium row = auditoriums.get(rowIndex);
 
         if(0 == columnIndex) {
             return row.getId();
 
         }else if(1 == columnIndex) {
-            return row.getFirstName();
+            return row.getAuditNumber();
 
         }else if(2 == columnIndex) {
-            return row.getLastName();
+            return row.getCapacity();
+
+        }else if(3 == columnIndex) {
+            return row.getAuditType();
         }
 
         return null;
@@ -65,17 +69,21 @@ public class TeacherTableModel extends AbstractTableModel implements TableData<T
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex)
     {
-        Teacher row = teachers.get(rowIndex);
+        Auditorium row = auditoriums.get(rowIndex);
 
         if(0 == columnIndex) {
             row.setId((Integer)aValue);
 
         }else if(1 == columnIndex) {
-            row.setFirstName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
+            row.setAuditNumber((Integer) aValue);
 
         }else if(2 == columnIndex) {
-            row.setLastName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
+            row.setCapacity((Integer) aValue);
+
+        }else if(3 == columnIndex) {
+            row.setAuditType((AuditoriumType) aValue);
         }
+
     }
 
     @Override
@@ -85,17 +93,17 @@ public class TeacherTableModel extends AbstractTableModel implements TableData<T
     }
 
     @Override
-    public List<Teacher> getTableData() {
-        return teachers;
+    public List<Auditorium> getTableData() {
+        return auditoriums;
     }
 
     @Override
-    public Teacher getNewRow() {
-        return new Teacher();
+    public Auditorium getNewRow() {
+        return new Auditorium();
     }
 
     @Override
-    public Dao<Teacher> getDao() {
-        return new TeacherDao();
+    public Dao<Auditorium> getDao() {
+        return new AuditoriumDao();
     }
 }

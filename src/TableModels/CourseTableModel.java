@@ -1,5 +1,7 @@
 package TableModels;
 
+import DAO.CourseDao;
+import DAO.Dao;
 import Data.Course;
 
 import javax.swing.table.AbstractTableModel;
@@ -83,4 +85,15 @@ public class CourseTableModel extends AbstractTableModel implements TableData<Co
     public List<Course> getTableData() {
         return courses;
     }
+
+    @Override
+    public Course getNewRow(){
+        return new Course();
+    }
+
+    @Override
+    public Dao<Course> getDao() {
+        return new CourseDao();
+    }
+
 }

@@ -117,8 +117,11 @@ public class CourseDao implements Dao<Course> {
     @Override
     public void save(Course course) {
         try {
-            update(course, new String[]{course.getId()+"", course.getCourseName()});
-            Database.getInstance().ExecuteWriteQuery(SqlQuery.INSERT(course.getCourseName()));
+            if(course.getId() != -1){
+                update(course, new String[]{course.getId()+"", course.getCourseName()});
+            }else {
+                Database.getInstance().ExecuteWriteQuery(SqlQuery.INSERT(course.getCourseName()));
+            }
         } catch (DatabaseException e) {
             System.out.println("CourseDao.save fail: " + e.getMessage());
         }

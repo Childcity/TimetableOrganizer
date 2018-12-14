@@ -21,7 +21,7 @@ public class DisciplineDao implements Dao<Discipline>, Database.QueryParser {
                 "   hours_total INT(2) NOT NULL, " +
                 "   dis_type TEXT CHARSET utf8mb4 NOT NULL, " +
                 "   speciality_id INTEGER NOT NULL, " +
-                "   FOREIGN KEY (speciality_id) REFERENCES speciality(id)" +
+                "   FOREIGN KEY (speciality_id) REFERENCES speciality(id) ON DELETE CASCADE" +
                 ");";
         static String SELECT_BY_ID(long id) { return String.format("SELECT * FROM `discipline` WHERE id = '%d'", id); }
         final static String SELECT_ALL = "SELECT * FROM `discipline`;";
@@ -39,7 +39,7 @@ public class DisciplineDao implements Dao<Discipline>, Database.QueryParser {
         static String DELETE(long id){ return String.format("DELETE FROM `discipline` WHERE id = '%d'", id); }
     }
 
-    private List<Speciality> specialities;
+    private Dao specialitiesDao;
 
     public static void Drop() throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.DROP_DISCIPLINE);
@@ -50,7 +50,7 @@ public class DisciplineDao implements Dao<Discipline>, Database.QueryParser {
     }
 
     public DisciplineDao() {
-        specialities = new SpecialityDao().getAll();
+        specialitiesDao = new SpecialityDao();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class DisciplineDao implements Dao<Discipline>, Database.QueryParser {
                     resultSet.getString("dis_name"),
                     resultSet.getInt("hours_total"),
                     new DisciplineType(resultSet.getString("dis_type")),
-                    specialities.get(resultSet.getInt("speciality_id") - 1)
+                    (Speciality) specialitiesDao.getById(resultSet.getInt("speciality_id")).orElse(new Speciality())
             ));
         }
         return (List<T>) disciplines;
@@ -117,11 +117,14 @@ public class DisciplineDao implements Dao<Discipline>, Database.QueryParser {
     @Override
     public void update(Discipline discipline, String[] params) {
         try {
+            Speciality newSpeciality = (Speciality) specialitiesDao.getById(Integer.parseInt(params[4])).orElse(new Speciality());
+
             discipline.setId(Integer.parseInt(params[0]));
             discipline.setDisName(Objects.requireNonNull(params[1], "Discipline name cannot be null"));
             discipline.setHoursTotal(Integer.parseInt(params[2]));
             discipline.setDisType(new DisciplineType(Objects.requireNonNull(params[3], "Discipline type cannot be null")));
-            discipline.setSpeciality(specialities.get(Integer.parseInt(params[4]) - 1));
+            discipline.setSpeciality(newSpeciality);
+
             Database.getInstance().ExecuteWriteQuery(
                     SqlQuery.UPDATE(discipline.getId(), discipline.getDisName(), discipline.getHoursTotal(),
                             discipline.getDisType().getType(), discipline.getSpeciality().getId())

@@ -1,5 +1,7 @@
 package TableModels;
 
+import DAO.Dao;
+import DAO.TeacherDisciplineDao;
 import Data.*;
 import Data.TeacherDiscipline;
 
@@ -86,5 +88,15 @@ public class TeacherDisciplineTableModel extends AbstractTableModel implements T
     @Override
     public List<TeacherDiscipline> getTableData() {
         return teachersDisciplines;
+    }
+
+    @Override
+    public TeacherDiscipline getNewRow() {
+        return new TeacherDiscipline();
+    }
+
+    @Override
+    public Dao<TeacherDiscipline> getDao() {
+        return new TeacherDisciplineDao();
     }
 }

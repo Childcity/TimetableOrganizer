@@ -11,265 +11,308 @@
     <collation id="3" parent="1" name="BINARY"/>
     <collation id="4" parent="1" name="NOCASE"/>
     <collation id="5" parent="1" name="RTRIM"/>
-    <table id="6" parent="2" name="course"/>
-    <table id="7" parent="2" name="discipline"/>
-    <table id="8" parent="2" name="group"/>
-    <table id="9" parent="2" name="group_teacher_discipline"/>
-    <table id="10" parent="2" name="speciality"/>
-    <table id="11" parent="2" name="sqlite_master">
+    <table id="6" parent="2" name="auditorium"/>
+    <table id="7" parent="2" name="course"/>
+    <table id="8" parent="2" name="discipline"/>
+    <table id="9" parent="2" name="group"/>
+    <table id="10" parent="2" name="group_teacher_discipline"/>
+    <table id="11" parent="2" name="speciality"/>
+    <table id="12" parent="2" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="12" parent="2" name="sqlite_sequence">
+    <table id="13" parent="2" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="13" parent="2" name="teacher"/>
-    <table id="14" parent="2" name="teacher_discipline"/>
-    <column id="15" parent="6" name="id">
+    <table id="14" parent="2" name="teacher"/>
+    <table id="15" parent="2" name="teacher_discipline"/>
+    <column id="16" parent="6" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="16" parent="6" name="course_name">
+    <column id="17" parent="6" name="audit_number">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="6" name="capacity">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="6" name="audit_type">
+      <Position>4</Position>
+      <DataType>TEXT CHARSET utf8mb4|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="20" parent="6" name="sqlite_autoindex_auditorium_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>audit_number</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="21" parent="6">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="22" parent="6">
+      <ColNames>audit_number</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_auditorium_1</UnderlyingIndexName>
+    </key>
+    <column id="23" parent="7" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="24" parent="7" name="course_name">
       <Position>2</Position>
       <DataType>TEXT CHARSET utf8mb4|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="17" parent="6" name="sqlite_autoindex_course_1">
+    <index id="25" parent="7" name="sqlite_autoindex_course_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>course_name</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="18" parent="6">
+    <key id="26" parent="7">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="19" parent="6">
+    <key id="27" parent="7">
       <ColNames>course_name</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_course_1</UnderlyingIndexName>
     </key>
-    <column id="20" parent="7" name="id">
+    <column id="28" parent="8" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="21" parent="7" name="dis_name">
+    <column id="29" parent="8" name="dis_name">
       <Position>2</Position>
       <DataType>TEXT CHARSET utf8mb4|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="7" name="hours_total">
+    <column id="30" parent="8" name="hours_total">
       <Position>3</Position>
       <DataType>INT(2)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="23" parent="7" name="dis_type">
+    <column id="31" parent="8" name="dis_type">
       <Position>4</Position>
       <DataType>TEXT CHARSET utf8mb4|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="24" parent="7" name="speciality_id">
+    <column id="32" parent="8" name="speciality_id">
       <Position>5</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="25" parent="7">
+    <key id="33" parent="8">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="26" parent="7">
+    <foreign-key id="34" parent="8">
       <ColNames>speciality_id</ColNames>
       <RefTableName>speciality</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="27" parent="8" name="id">
+    <column id="35" parent="9" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="28" parent="8" name="qr_name">
+    <column id="36" parent="9" name="qr_name">
       <Position>2</Position>
       <DataType>TEXT CHARSET utf8mb4|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="29" parent="8" name="students_number">
+    <column id="37" parent="9" name="students_number">
       <Position>3</Position>
       <DataType>INT(2)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>1</DefaultExpression>
     </column>
-    <column id="30" parent="8" name="course_id">
+    <column id="38" parent="9" name="course_id">
       <Position>4</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="31" parent="8" name="speciality_id">
+    <column id="39" parent="9" name="speciality_id">
       <Position>5</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="32" parent="8" name="sqlite_autoindex_group_1">
+    <index id="40" parent="9" name="sqlite_autoindex_group_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>qr_name</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="33" parent="8">
+    <key id="41" parent="9">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="34" parent="8">
+    <key id="42" parent="9">
       <ColNames>qr_name</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_group_1</UnderlyingIndexName>
     </key>
-    <foreign-key id="35" parent="8">
+    <foreign-key id="43" parent="9">
       <ColNames>course_id</ColNames>
       <RefTableName>course</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="36" parent="8">
+    <foreign-key id="44" parent="9">
       <ColNames>speciality_id</ColNames>
       <RefTableName>speciality</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="37" parent="9" name="id">
+    <column id="45" parent="10" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="38" parent="9" name="group_id">
+    <column id="46" parent="10" name="group_id">
       <Position>2</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="39" parent="9" name="teacher_discipline_id">
+    <column id="47" parent="10" name="teacher_discipline_id">
       <Position>3</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="40" parent="9">
+    <key id="48" parent="10">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="41" parent="9">
+    <foreign-key id="49" parent="10">
       <ColNames>group_id</ColNames>
       <RefTableName>group</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="42" parent="9">
+    <foreign-key id="50" parent="10">
       <ColNames>teacher_discipline_id</ColNames>
       <RefTableName>teacher_discipline</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="43" parent="10" name="id">
+    <column id="51" parent="11" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="44" parent="10" name="spec_name">
+    <column id="52" parent="11" name="spec_name">
       <Position>2</Position>
       <DataType>TEXT CHARSET utf8mb4|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="45" parent="10" name="numeric_name">
+    <column id="53" parent="11" name="numeric_name">
       <Position>3</Position>
       <DataType>INT(2)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="46" parent="10" name="sqlite_autoindex_speciality_1">
+    <index id="54" parent="11" name="sqlite_autoindex_speciality_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>numeric_name</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="47" parent="10">
+    <key id="55" parent="11">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="48" parent="10">
+    <key id="56" parent="11">
       <ColNames>numeric_name</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_speciality_1</UnderlyingIndexName>
     </key>
-    <column id="49" parent="11" name="type">
+    <column id="57" parent="12" name="type">
       <Position>1</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="50" parent="11" name="name">
+    <column id="58" parent="12" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="51" parent="11" name="tbl_name">
+    <column id="59" parent="12" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="52" parent="11" name="rootpage">
+    <column id="60" parent="12" name="rootpage">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="53" parent="11" name="sql">
+    <column id="61" parent="12" name="sql">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="54" parent="12" name="name">
+    <column id="62" parent="13" name="name">
       <Position>1</Position>
     </column>
-    <column id="55" parent="12" name="seq">
+    <column id="63" parent="13" name="seq">
       <Position>2</Position>
     </column>
-    <column id="56" parent="13" name="id">
-      <Position>1</Position>
-      <DataType>INTEGER|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="57" parent="13" name="first_name">
-      <Position>2</Position>
-      <DataType>TEXT CHARSET utf8mb4|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="58" parent="13" name="last_name">
-      <Position>3</Position>
-      <DataType>TEXT CHARSET utf8mb4|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <key id="59" parent="13">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="60" parent="14" name="id">
+    <column id="64" parent="14" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="61" parent="14" name="teacher_id">
+    <column id="65" parent="14" name="first_name">
+      <Position>2</Position>
+      <DataType>TEXT CHARSET utf8mb4|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="14" name="last_name">
+      <Position>3</Position>
+      <DataType>TEXT CHARSET utf8mb4|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="67" parent="14">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="68" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="69" parent="15" name="teacher_id">
       <Position>2</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="62" parent="14" name="discipline_id">
+    <column id="70" parent="15" name="discipline_id">
       <Position>3</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="63" parent="14">
+    <key id="71" parent="15">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="64" parent="14">
+    <foreign-key id="72" parent="15">
       <ColNames>teacher_id</ColNames>
-      <RefTableName>course</RefTableName>
+      <RefTableName>teacher</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="65" parent="14">
+    <foreign-key id="73" parent="15">
       <ColNames>discipline_id</ColNames>
-      <RefTableName>speciality</RefTableName>
+      <RefTableName>discipline</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>

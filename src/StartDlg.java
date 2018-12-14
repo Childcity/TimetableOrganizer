@@ -114,7 +114,6 @@ public class StartDlg extends JDialog {
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 
     private void updateFilePath() {

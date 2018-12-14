@@ -21,8 +21,8 @@ public class GroupDao implements Dao<Group>, Database.QueryParser {
                 "   students_number INT(2) NOT NULL DEFAULT 1, " +
                 "   course_id INTEGER NOT NULL, " +
                 "   speciality_id INTEGER NOT NULL, " +
-                "   FOREIGN KEY (course_id) REFERENCES course(id), " +
-                "   FOREIGN KEY (speciality_id) REFERENCES speciality(id)" +
+                "   FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE, " +
+                "   FOREIGN KEY (speciality_id) REFERENCES speciality(id) ON DELETE CASCADE" +
                 ");";
         static String SELECT_BY_ID(long id) { return String.format("SELECT * FROM `group` WHERE id = '%d'", id); }
         final static String SELECT_ALL = "SELECT * FROM `group`;";
@@ -40,8 +40,8 @@ public class GroupDao implements Dao<Group>, Database.QueryParser {
         static String DELETE(long id){ return String.format("DELETE FROM `group` WHERE id = '%d'", id); }
     }
 
-    private List<Course> courses;
-    private List<Speciality> specialities;
+    private Dao courseDao;
+    private Dao specialitiesDao;
 
     public static void Drop() throws DatabaseException {
         Database.getInstance().ExecuteWriteQuery(SqlQuery.DROP_GROUP);
@@ -52,8 +52,8 @@ public class GroupDao implements Dao<Group>, Database.QueryParser {
     }
 
     public GroupDao() {
-        courses = new CourseDao().getAll();
-        specialities = new SpecialityDao().getAll();
+        courseDao = new CourseDao();
+        specialitiesDao = new SpecialityDao();
     }
 
     @Override
@@ -64,8 +64,8 @@ public class GroupDao implements Dao<Group>, Database.QueryParser {
                     resultSet.getInt("id"),
                     resultSet.getString("qr_name"),
                     resultSet.getInt("students_number"),
-                    courses.get(resultSet.getInt("course_id") - 1),
-                    specialities.get(resultSet.getInt("speciality_id") - 1)
+                    (Course) courseDao.getById(resultSet.getInt("course_id")).orElse(new Course()),
+                    (Speciality) specialitiesDao.getById(resultSet.getInt("speciality_id")).orElse(new Speciality())
             ));
         }
         return (List<T>) groups;
@@ -117,11 +117,14 @@ public class GroupDao implements Dao<Group>, Database.QueryParser {
     @Override
     public void update(Group group, String[] params) {
         try {
+            Course newCourse = (Course) courseDao.getById(Integer.parseInt(params[3])).orElse(new Course());
+            Speciality newSpeciality = (Speciality) specialitiesDao.getById(Integer.parseInt(params[4])).orElse(new Speciality());
+
             group.setId(Integer.parseInt(params[0]));
             group.setGroupName(Objects.requireNonNull(params[1], "Group name cannot be null"));
             group.setStudentsNumber(Integer.parseInt(params[2]));
-            group.setCourse(courses.get(Integer.parseInt(params[3]) - 1));
-            group.setSpeciality(specialities.get(Integer.parseInt(params[4]) - 1));
+            group.setCourse(newCourse);
+            group.setSpeciality(newSpeciality);
 
             Database.getInstance().ExecuteWriteQuery(
                     SqlQuery.UPDATE(group.getId(), group.getGroupName(), group.getStudentsNumber(),

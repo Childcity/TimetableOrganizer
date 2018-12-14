@@ -1,5 +1,7 @@
 package TableModels;
 
+import DAO.Dao;
+import DAO.SpecialityDao;
 import Data.Speciality;
 
 import javax.swing.table.AbstractTableModel;
@@ -87,5 +89,15 @@ public class SpecialityTableModel extends AbstractTableModel implements TableDat
     @Override
     public List<Speciality> getTableData() {
         return specialities;
+    }
+
+    @Override
+    public Speciality getNewRow() {
+        return new Speciality();
+    }
+
+    @Override
+    public Dao<Speciality> getDao() {
+        return new SpecialityDao();
     }
 }
