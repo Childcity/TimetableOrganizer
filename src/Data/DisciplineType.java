@@ -9,6 +9,7 @@ public class DisciplineType {
 
     public static List<DisciplineType> GetDisciplines(){
         var disTypes = new ArrayList<DisciplineType>();
+        //disTypes.add(new DisciplineType(""));
         disTypes.add(new DisciplineType("Lection"));
         disTypes.add(new DisciplineType("Practice"));
         disTypes.add(new DisciplineType("Laboratory"));
@@ -23,6 +24,10 @@ public class DisciplineType {
         this(GetDisciplines().get(0).getType());
     }
 
+    public DisciplineType(DisciplineType other){
+        this(other.getType());
+    }
+
     public String getType() {
         return type_;
     }
@@ -34,5 +39,15 @@ public class DisciplineType {
     @Override
     public String toString() {
         return getType();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (! (obj instanceof DisciplineType))
+            return false;
+        if (obj == this)
+            return true;
+        return this.getType().equals(((DisciplineType) obj).getType());
     }
 }

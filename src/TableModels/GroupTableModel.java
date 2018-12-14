@@ -77,7 +77,7 @@ public class GroupTableModel extends AbstractTableModel implements TableData<Gro
             row.setId((Integer)aValue);
         }
         else if(1 == columnIndex) {
-            row.setGroupName((String) aValue);
+            row.setGroupName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
         }
         else if(2 == columnIndex) {
             row.setStudentsNumber((Integer) aValue);

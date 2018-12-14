@@ -4,6 +4,7 @@ import Data.Discipline;
 import Data.DisciplineType;
 import Data.Speciality;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -77,13 +78,18 @@ public class DisciplineTableModel extends AbstractTableModel implements TableDat
             row.setId((Integer)aValue);
         }
         else if(1 == columnIndex) {
-            row.setDisName((String) aValue);
+            String  newDisciplineName = ((String) aValue).replaceAll("^ +| +$|( )+", "$1");
+            if(checkDisciplineName(newDisciplineName, rowIndex, columnIndex)){
+                row.setDisName(newDisciplineName);
+            }
         }
         else if(2 == columnIndex) {
             row.setHoursTotal((Integer) aValue);
         }
         else if(3 == columnIndex) {
-            row.setDisType((DisciplineType) aValue);
+            DisciplineType newDisciplineType = (DisciplineType) aValue;
+            if(checkDisciplineType(newDisciplineType, rowIndex, columnIndex))
+            row.setDisType(newDisciplineType);
         }
         else if(4 == columnIndex) {
             row.setSpeciality((Speciality) aValue);
@@ -99,5 +105,35 @@ public class DisciplineTableModel extends AbstractTableModel implements TableDat
     @Override
     public List<Discipline> getTableData() {
         return disciplines;
+    }
+
+    private boolean checkDisciplineName(String newDiscipline, int rowIndex, int columnIndex){
+        for (int i = 0; i < disciplines.size(); i++){
+            if(i != rowIndex) {
+                if (disciplines.get(i).getDisName().equals(newDiscipline)) {
+                    //JOptionPane.showMessageDialog(null, disciplines.get(i).getDisType().getType() + " " + disciplines.get(rowIndex).getDisType().getType());
+                    if(disciplines.get(i).getDisType().equals(disciplines.get(rowIndex).getDisType())){
+                        JOptionPane.showMessageDialog(null, "Two Disciplines have the same Type!");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean checkDisciplineType(DisciplineType newDisciplineType, int rowIndex, int columnIndex){
+        for (int i = 0; i < disciplines.size(); i++){
+            if(i != rowIndex) {
+                if(disciplines.get(i).getDisType().equals(newDisciplineType)){
+                    if (disciplines.get(i).getDisName().equals(disciplines.get(rowIndex).getDisName())) {
+                        //JOptionPane.showMessageDialog(null, disciplines.get(i).getDisType().getType() + " " + disciplines.get(rowIndex).getDisType().getType());
+                        JOptionPane.showMessageDialog(null, "Two Types have the same Discipline!");
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

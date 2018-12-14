@@ -39,22 +39,22 @@ public class TeacherDiscipline {
         String firstName, lastName, discipline;
         firstName = teacher_.getFirstName();
         lastName = teacher_.getLastName();
-        discipline = discipline_.getDisName();
+        discipline = discipline_.toString();
 
-        if(firstName.length() >= 4){
-            firstName = firstName.substring(0, 3);
-        }
-        System.out.println(firstName);
-        if(lastName.length() >= 4){
-            lastName = lastName.substring(0, 3);
-        }
-        System.out.println(lastName);
-        if(teacher_.getFirstName().length() >= 4){
-            discipline = discipline.substring(0, 3);
-        }
-        System.out.println(discipline);
+//        if(firstName.length() >= 4){
+//            firstName = firstName.substring(0, 3);
+//        }
+//        System.out.println(firstName);
+//        if(lastName.length() >= 4){
+//            lastName = lastName.substring(0, 3);
+//        }
+//        System.out.println(lastName);
+//        if(teacher_.getFirstName().length() >= 4){
+//            discipline = discipline.substring(0, 3);
+//        }
+//        System.out.println(discipline);
 
-        return firstName + lastName + "-" + discipline;
+        return firstName + lastName + " : " + discipline;
     }
 
     public int getId() {

@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class DatabaseCreator extends JDialog implements ActionListener{
-    private final int WINDOW_WIDTH = 600, WINDOW_HEIGHT = 450;
+    private static final int WINDOW_WIDTH = 800, WINDOW_HEIGHT = 500;
 
     private JPanel contentPane;
     private JButton buttonOK;
@@ -24,12 +24,12 @@ public class DatabaseCreator extends JDialog implements ActionListener{
     private JPanel tablePanel;
     private JButton saveChangesButton;
     private JButton teacherDisciplinesButton;
-    private JButton auditoriesButton;
+    private JButton auditoriumsButton;
     private JButton groupDisciplineTeacherButton;
 
     private enum  Table {Courses, Specialities, Groups
         , Teachers, Disciplines, TeacherDisciplines
-        , Auditoriums, GroupDisciplineTeacher
+        , Auditoriums, GroupTeacherDiscipline
     }
 
     private JTable editableTable;
@@ -45,6 +45,8 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 onCancel();
@@ -60,7 +62,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         teachersButton.addActionListener(this);
         disciplinesButton.addActionListener(this);
         teacherDisciplinesButton.addActionListener(this);
-        auditoriesButton.addActionListener(this);
+        auditoriumsButton.addActionListener(this);
         groupDisciplineTeacherButton.addActionListener(this);
 
         saveChangesButton.addActionListener(this);
@@ -88,15 +90,17 @@ public class DatabaseCreator extends JDialog implements ActionListener{
                 new TeacherDao().saveAll((List<Teacher>) tableData);
 
             }else if(currTableState == Table.Disciplines){
+
                 new DisciplineDao().saveAll((List<Discipline>) tableData);
 
             }else if(currTableState == Table.TeacherDisciplines){
                 new TeacherDisciplineDao().saveAll((List<TeacherDiscipline>) tableData);
 
             }else if(currTableState == Table.Auditoriums){
+                new AuditoriumDao().saveAll((List<Auditorium>) tableData);
 
-            }else if(currTableState == Table.GroupDisciplineTeacher){
-
+            }else if(currTableState == Table.GroupTeacherDiscipline){
+                new GroupTeacherDisciplineDao().saveAll((List<GroupTeacherDiscipline>) tableData);
             }
             return;
         }
@@ -150,10 +154,23 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             editableTable.setDefaultEditor(Discipline.class, new ComboBoxCellEditor<>(new DisciplineDao().getAll()));
 
         }else if(clickedButton.equals("Auditoriums")){
+            currTableState = Table.Auditoriums;
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Auditoriums"));
+            tableData = new AuditoriumDao().getAll(); //fill table data
+            editableTable.setModel(new AuditoriumTableModel((List<Auditorium>) tableData));
+            editableTable.setDefaultRenderer(AuditoriumType.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(AuditoriumType.class, new ComboBoxCellEditor<>(AuditoriumType.GetAuditoriums()));
 
-        }else if(clickedButton.equals("Group-Discipline-Teacher")){
-
-
+        }else if(clickedButton.equals("Group-Teacher-Discipline")){
+            currTableState = Table.GroupTeacherDiscipline;
+            tablePanel.setBorder(BorderFactory.createTitledBorder("Group-Teacher-Discipline"));
+            tableData = new GroupTeacherDisciplineDao().getAll(); //fill table data
+            editableTable.setModel(new GroupTeacherDisciplineTableModel((List<GroupTeacherDiscipline>) tableData));
+            editableTable.setDefaultRenderer(Group.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(Group.class, new ComboBoxCellEditor<>(new GroupDao().getAll()));
+            editableTable.setDefaultRenderer(TeacherDiscipline.class, new ComboBoxCellRenderer<>());
+            editableTable.setDefaultEditor(TeacherDiscipline.class, new ComboBoxCellEditor<>(new TeacherDisciplineDao().getAll()));
+            editableTable.getColumnModel().getColumn(2).setPreferredWidth(130);
         }
 
         if(tablePanel.getComponentCount() >= 2)

@@ -69,39 +69,38 @@ public class StartDlg extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        createNew.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String currentDateTime = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date()); // get current date and time
-                dbPathChooser.setSelectedFile(new File(".\\timetable_" + currentDateTime + ".sqlite3")); // set default name for db
-                // show file dialog and result (what  user passed) save to 'result'
-                int result = dbPathChooser.showSaveDialog(null);
-                if(result == JFileChooser.APPROVE_OPTION){ // if user pressed OK and entered path to new db
-                    updateFilePath();
+        createNew.addActionListener(e -> {
+            String currentDateTime = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date()); // get current date and time
+            dbPathChooser.setSelectedFile(new File(".\\timetable_" + currentDateTime + ".sqlite3")); // set default name for db
 
-                    try {
-                        DAO.Database.setDbPath(dbPath);
-                        DAO.Database.getInstance().Create();
+            // show file dialog and result (what  user passed) save to 'result'
+            int result = dbPathChooser.showSaveDialog(null);
+            if(result == JFileChooser.APPROVE_OPTION){ // if user pressed OK and entered path to new db
+                updateFilePath();
 
-                        DatabaseCreator dbCreator = new DatabaseCreator();
-                        dbCreator.pack();
-                        dbCreator.setVisible(true);
-                    } catch (DatabaseException ex) {
-                        System.out.println(ex.getMessage());
-                        //e.printStackTrace();
-                    }
+                try {
+                    DAO.Database.setDbPath(dbPath);
+                    DAO.Database.getInstance().Create();
+
+                    DatabaseCreator dbCreator = new DatabaseCreator();
+                    dbCreator.pack();
+                    dbCreator.setVisible(true);
+                } catch (DatabaseException ex) {
+                    System.out.println(ex.getMessage());
+                    //e.printStackTrace();
                 }
             }
-
         });
-        useExistingButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // show file dialog and result (what  user passed) save to 'result'
-                int result = dbPathChooser.showSaveDialog(null);
-                if(result == JFileChooser.APPROVE_OPTION){ // if user pressed OK and entered path to new db
-                    updateFilePath();
-                }
+        useExistingButton.addActionListener(e -> {
+            // show file dialog and result (what  user passed) save to 'result'
+            int result = dbPathChooser.showSaveDialog(null);
+            if(result == JFileChooser.APPROVE_OPTION){ // if user pressed OK and entered path to new db
+                updateFilePath();
+                DAO.Database.setDbPath(dbPath);
+
+                DatabaseCreator dbCreator = new DatabaseCreator();
+                dbCreator.pack();
+                dbCreator.setVisible(true);
             }
         });
     }
@@ -114,13 +113,6 @@ public class StartDlg extends JDialog {
         dispose(); // just close Dialog
     }
 
-    public static void main(String[] args) {
-        StartDlg dialog = new StartDlg();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
-    }
-
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
@@ -129,8 +121,15 @@ public class StartDlg extends JDialog {
         dbPath = dbPathChooser.getSelectedFile().getPath();
         dbFilePathLabel.setText(String.format(
                 "<html><p width=%d>" +
-                        "Database&nbsp;file:&nbsp;" + dbPath +
-                        "</p></html>",(WINDOW_WIDTH - 70))
+                "Database&nbsp;file:&nbsp;" + dbPath +
+                "</p></html>",(WINDOW_WIDTH - 70))
         );
+    }
+
+    public static void main(String[] args) {
+        StartDlg dialog = new StartDlg();
+        dialog.pack();
+        dialog.setVisible(true);
+        System.exit(0);
     }
 }

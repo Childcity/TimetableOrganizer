@@ -122,14 +122,15 @@ public class GroupDao implements Dao<Group>, Database.QueryParser {
             group.setStudentsNumber(Integer.parseInt(params[2]));
             group.setCourse(courses.get(Integer.parseInt(params[3]) - 1));
             group.setSpeciality(specialities.get(Integer.parseInt(params[4]) - 1));
-            //System.out.println(""+group.getId()+group.getGroupName()+group.getStudentsNumber()+group.getCourseId()+group.getSpecialityId());
+
             Database.getInstance().ExecuteWriteQuery(
                     SqlQuery.UPDATE(group.getId(), group.getGroupName(), group.getStudentsNumber(),
                             group.getCourse().getId(), group.getSpeciality().getId())
             );
         } catch (Exception e) {
             System.out.println("GroupDao.update fail: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
+
         }
     }
 

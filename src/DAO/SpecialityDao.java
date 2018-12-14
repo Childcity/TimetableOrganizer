@@ -137,7 +137,7 @@ public class SpecialityDao implements Dao<Speciality> {
                     SqlQuery.UPDATE(speciality.getId(), speciality.getNumericName(), speciality.getSpecName()));
         } catch (Exception e) {
             System.out.println("SpecialityDao.update fail: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

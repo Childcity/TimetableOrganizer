@@ -113,7 +113,7 @@ public class TeacherDao implements Dao<Teacher>, Database.QueryParser {
             );
         } catch (Exception e) {
             System.out.println("TeacherDao.update fail: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

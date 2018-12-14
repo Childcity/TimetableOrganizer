@@ -69,10 +69,10 @@ public class TeacherTableModel extends AbstractTableModel implements TableData<T
             row.setId((Integer)aValue);
 
         }else if(1 == columnIndex) {
-            row.setFirstName((String) aValue);
+            row.setFirstName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
 
         }else if(2 == columnIndex) {
-            row.setLastName((String) aValue);
+            row.setLastName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
         }
     }
 

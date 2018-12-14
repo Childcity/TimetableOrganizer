@@ -128,7 +128,7 @@ public class DisciplineDao implements Dao<Discipline>, Database.QueryParser {
             );
         } catch (Exception e) {
             System.out.println("DisciplineDao.update fail: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

@@ -126,7 +126,7 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
             );
         } catch (Exception e) {
             System.out.println("TeacherDisciplineDao.update fail: " + e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

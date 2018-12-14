@@ -69,7 +69,7 @@ public class CourseTableModel extends AbstractTableModel implements TableData<Co
             row.setId((Integer)aValue);
         }
         else if(1 == columnIndex) {
-            row.setCourseName((String) aValue);
+            row.setCourseName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
         }
     }
 

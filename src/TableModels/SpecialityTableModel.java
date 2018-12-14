@@ -71,7 +71,7 @@ public class SpecialityTableModel extends AbstractTableModel implements TableDat
             row.setId((Integer)aValue);
         }
         else if(1 == columnIndex) {
-            row.setSpecName((String) aValue);
+            row.setSpecName(((String) aValue).replaceAll("^ +| +$|( )+", "$1"));
         }
         else if(2 == columnIndex) {
             row.setNumericName((Integer)aValue);

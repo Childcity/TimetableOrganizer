@@ -66,14 +66,16 @@ public class Database {
 
     public void Create() throws DatabaseException {
         try {
-            Dao dao = new SpecialityDao();
+            GroupTeacherDisciplineDao.Drop();
             GroupDao.Drop();
             TeacherDisciplineDao.Drop();
             DisciplineDao.Drop();
             SpecialityDao.Drop();
             CourseDao.Drop();
             TeacherDao.Drop();
+            AuditoriumDao.Drop();
 
+            Dao dao = new SpecialityDao();
             SpecialityDao.Create();
             System.out.println("Created table 'speciality'");
 
@@ -105,10 +107,10 @@ public class Database {
             DisciplineDao.Create();
             System.out.println("Created table 'discipline'");
             dao = new DisciplineDao();
-            dao.save(new Discipline("Math", 48, new DisciplineType(DisciplineType.GetDisciplines().get(0)+""), new SpecialityDao().getAll().get(0)));
-            dao.save(new Discipline("Math", 24, new DisciplineType(DisciplineType.GetDisciplines().get(1)+""), new SpecialityDao().getAll().get(0)));
-            dao.save(new Discipline("Physics", 16, new DisciplineType(DisciplineType.GetDisciplines().get(2)+""), new SpecialityDao().getAll().get(1)));
-            dao.save(new Discipline("Ukrmova", 15, new DisciplineType(DisciplineType.GetDisciplines().get(1)+""), new SpecialityDao().getAll().get(1)));
+            dao.save(new Discipline("Math", 48, new DisciplineType(DisciplineType.GetDisciplines().get(0)), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("Math", 24, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("Physics", 16, new DisciplineType(DisciplineType.GetDisciplines().get(2)), new SpecialityDao().getAll().get(1)));
+            dao.save(new Discipline("Ukrmova", 15, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(1)));
 
             TeacherDisciplineDao.Create();
             System.out.println("Created table 'teacher_discipline'");
@@ -116,6 +118,22 @@ public class Database {
             dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(0)));
             dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(1)));
             dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(2)));
+
+            AuditoriumDao.Create();
+            System.out.println("Created table 'auditorium'");
+            dao = new AuditoriumDao();
+            dao.save(new Auditorium(513, 25, AuditoriumType.GetAuditoriums().get(0)));
+            dao.save(new Auditorium(409, 20, AuditoriumType.GetAuditoriums().get(0)));
+            dao.save(new Auditorium(2, 200, AuditoriumType.GetAuditoriums().get(1)));
+            dao.save(new Auditorium(1, 250, AuditoriumType.GetAuditoriums().get(1)));
+
+            GroupTeacherDisciplineDao.Create();
+            System.out.println("Created table 'group_teacher_discipline'");
+            dao = new GroupTeacherDisciplineDao();
+            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(0)));
+            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(1)));
+            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(2)));
+
             //dao.save(new TeacherDiscipline(new Teacher("Vova", "Lysyi"), dis4));
             //dao.getAll().forEach(speciality -> System.out.println(speciality.getNumericName()+speciality.getSpecName()));
         } catch (Exception e){

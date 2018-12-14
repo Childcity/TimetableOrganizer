@@ -141,7 +141,7 @@
                   <text value="Teacher-Disciplines"/>
                 </properties>
               </component>
-              <component id="56ec1" class="javax.swing.JButton" binding="auditoriesButton" default-binding="true">
+              <component id="56ec1" class="javax.swing.JButton" binding="auditoriumsButton">
                 <constraints>
                   <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
@@ -156,7 +156,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <text value="Group-Discipline-Teacher"/>
+                  <text value="Group-Teacher-Discipline"/>
                 </properties>
               </component>
             </children>
