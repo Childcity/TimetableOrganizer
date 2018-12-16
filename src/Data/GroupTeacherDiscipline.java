@@ -42,4 +42,9 @@ public class GroupTeacherDiscipline {
     public void setTeacherDiscipline(TeacherDiscipline teacherDiscipline) {
         this.teacherDiscipline_ = teacherDiscipline;
     }
+
+    @Override
+    public String toString(){
+        return teacherDiscipline_.toString();
+    }
 }

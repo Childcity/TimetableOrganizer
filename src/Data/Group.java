@@ -67,6 +67,7 @@ public class Group {
         this.speciality_ = speciality;
     }
 
+    @Override
     public String toString(){
         return getGroupName();
     }

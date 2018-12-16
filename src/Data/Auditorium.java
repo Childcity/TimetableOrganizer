@@ -55,6 +55,10 @@ public class Auditorium {
 
     @Override
     public String toString() {
-        return getAuditNumber() + ":" + getAuditType();
+        if(auditNumber_ == -1 || auditType_.getType().equals("")){
+            return "";
+        }
+
+        return getAuditNumber() + " [" + getAuditType() + "]";
     }
 }

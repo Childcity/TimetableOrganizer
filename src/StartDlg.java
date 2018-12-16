@@ -98,9 +98,9 @@ public class StartDlg extends JDialog {
                 updateFilePath();
                 DAO.Database.setDbPath(dbPath);
 
-                DatabaseCreator dbCreator = new DatabaseCreator();
-                dbCreator.pack();
-                dbCreator.setVisible(true);
+                TimetableEditor dialog = new TimetableEditor();
+                dialog.pack();
+                dialog.setVisible(true);
             }
         });
     }

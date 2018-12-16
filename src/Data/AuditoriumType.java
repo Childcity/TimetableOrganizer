@@ -20,7 +20,7 @@ public class AuditoriumType {
     }
 
     public AuditoriumType(){
-        this(GetAuditoriums().get(0).getType());
+        this("");
     }
 
     public AuditoriumType(AuditoriumType other){

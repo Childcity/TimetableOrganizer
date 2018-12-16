@@ -21,7 +21,7 @@ public class DisciplineType {
     }
 
     public DisciplineType(){
-        this(GetDisciplines().get(0).getType());
+        this("");
     }
 
     public DisciplineType(DisciplineType other){

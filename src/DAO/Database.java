@@ -66,6 +66,7 @@ public class Database {
 
     public void Create() throws DatabaseException {
         try {
+            TimetableDao.Drop();
             GroupTeacherDisciplineDao.Drop();
             GroupDao.Drop();
             TeacherDisciplineDao.Drop();
@@ -133,9 +134,26 @@ public class Database {
             dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(0)));
             dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(1)));
             dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(2)));
+            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(1), new TeacherDisciplineDao().getAll().get(2)));
+            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(1), new TeacherDisciplineDao().getAll().get(0)));
+            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(1), new TeacherDisciplineDao().getAll().get(1)));
 
-            //dao.save(new TeacherDiscipline(new Teacher("Vova", "Lysyi"), dis4));
-            //dao.getAll().forEach(speciality -> System.out.println(speciality.getNumericName()+speciality.getSpecName()));
+            TimetableDao.Create();
+            System.out.println("Created table 'timetable'");
+            dao = new TimetableDao();
+            dao.save(new Timetable(1, 0,0, new AuditoriumDao().getAll().get(0), new GroupTeacherDisciplineDao().getAll().get(0)));
+            dao.save(new Timetable(1, 0,1, new AuditoriumDao().getAll().get(1), new GroupTeacherDisciplineDao().getAll().get(1)));
+            dao.save(new Timetable(1, 0,4, new AuditoriumDao().getAll().get(2), new GroupTeacherDisciplineDao().getAll().get(2)));
+            dao.save(new Timetable(1, 1,1, new AuditoriumDao().getAll().get(1), new GroupTeacherDisciplineDao().getAll().get(0)));
+            dao.save(new Timetable(1, 2,1, new AuditoriumDao().getAll().get(2), new GroupTeacherDisciplineDao().getAll().get(1)));
+            dao.save(new Timetable(1, 1,3, new AuditoriumDao().getAll().get(0), new GroupTeacherDisciplineDao().getAll().get(2)));
+            new TimetableDao().getAllDays(1, new GroupDao().getAll().get(0));
+//            dao.getAll().forEach(obj -> {
+//                Timetable tmtbl = (Timetable)obj;
+//                System.out.println(tmtbl.getId()+" "+
+//                        tmtbl.getAuditorium().getAuditNumber()+" "+
+//                        tmtbl.getGroupTeacherDiscipline().getTeacherDiscipline().getId());
+//            });
         } catch (Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();

@@ -5,8 +5,10 @@ import TableModels.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -17,7 +19,6 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
     private JPanel contentPane;
     private JButton buttonOK;
-    private JButton buttonCancel;
 
     private JButton coursesButton;
     private JButton specialitiesButton;
@@ -38,13 +39,13 @@ public class DatabaseCreator extends JDialog implements ActionListener{
     private JTable editableTable;
     private List<?> tableData;
     private Table currTableState;
+    private JTextField filterField;
+    private TableRowSorter<TableModel> rowSorter;
 
     public DatabaseCreator() {
         initMainPanel();
 
         buttonOK.addActionListener(e -> onOK());
-
-        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -52,12 +53,12 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                onCancel();
+                onOK();
             }
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         specialitiesButton.addActionListener(this);
         coursesButton.addActionListener(this);
@@ -185,6 +186,8 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         if(tablePanel.getComponentCount() >= 2)
             tablePanel.remove(1);
+        rowSorter = new TableRowSorter<>(editableTable.getModel());
+        editableTable.setRowSorter(rowSorter);
         tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel
         revalidate();
     }
@@ -201,6 +204,9 @@ public class DatabaseCreator extends JDialog implements ActionListener{
         setBounds(400, 200, WINDOW_WIDTH, WINDOW_HEIGHT);
         setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
+        JPanel northPanel = new JPanel();
+        northPanel.setLayout(new GridLayout(2, 1));
+
          //add button to create possibility add new rows in table
         JButton addRowButton = new JButton("Add new raw");
         addRowButton.setFocusPainted(false);
@@ -210,7 +216,47 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             tableData.add(((TableData) editableTable.getModel()).getNewRow());
             editableTable.revalidate();
         });
-        tablePanel.add(addRowButton, BorderLayout.PAGE_END);
+        northPanel.add(addRowButton );
+
+
+        //add table sorter (to sort rows)
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        searchPanel.add(new JLabel("Specify a word to search:"), BorderLayout.WEST);
+        filterField = new JTextField();
+        filterField.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = filterField.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = filterField.getText();
+
+                if (text.trim().length() == 0) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+        });
+        searchPanel.add(filterField, BorderLayout.CENTER);
+        northPanel.add(searchPanel);
+
+        tablePanel.add(northPanel, BorderLayout.PAGE_END);
 
         editableTable = new JTable();
         editableTable.addMouseListener(new MouseAdapter() {
@@ -232,12 +278,6 @@ public class DatabaseCreator extends JDialog implements ActionListener{
     }
 
     private void onOK() {
-        // add your code here
-        dispose();
-    }
-
-    private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 

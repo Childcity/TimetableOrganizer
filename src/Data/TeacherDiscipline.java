@@ -54,6 +54,10 @@ public class TeacherDiscipline {
 //        }
 //        System.out.println(discipline);
 
+        if((firstName+lastName+discipline).equals("")){
+            return "";
+        }
+
         return firstName + lastName + " : " + discipline;
     }
 

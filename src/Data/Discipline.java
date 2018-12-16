@@ -66,6 +66,9 @@ public class Discipline {
 
     @Override
     public String toString(){
+        if(disName_.equals("") || disType_.getType().equals("")){
+            return "";
+        }
         return getDisName() + "-" + getDisType();
     }
 }
