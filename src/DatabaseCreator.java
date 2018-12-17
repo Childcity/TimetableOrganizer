@@ -186,6 +186,7 @@ public class DatabaseCreator extends JDialog implements ActionListener{
 
         if(tablePanel.getComponentCount() >= 2)
             tablePanel.remove(1);
+        editableTable.getColumnModel().getColumn(0).setMaxWidth(20);
         rowSorter = new TableRowSorter<>(editableTable.getModel());
         editableTable.setRowSorter(rowSorter);
         tablePanel.add(new JScrollPane(editableTable), BorderLayout.CENTER); // add the table to the root panel

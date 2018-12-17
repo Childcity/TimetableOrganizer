@@ -80,9 +80,10 @@ public class Database {
             SpecialityDao.Create();
             System.out.println("Created table 'speciality'");
 
-            dao.save(new Speciality("Comp Nauki", 111));
-            dao.save(new Speciality("Sistem Analize", 112));
-            dao.save(new Speciality("Gumanitariy", 117));
+            dao.save(new Speciality("Comp Science", 111));
+            dao.save(new Speciality("System Analise", 112));
+            dao.save(new Speciality("Program Engineering", 117));
+            dao.save(new Speciality("Robotic Engineering", 118));
 
             CourseDao.Create();
             System.out.println("Created table 'course'");
@@ -90,6 +91,7 @@ public class Database {
             dao.save(new Course("First"));
             dao.save(new Course("Second"));
             dao.save(new Course("Third"));
+            dao.save(new Course("Fourth"));
 
             GroupDao.Create();
             System.out.println("Created table 'group'");
@@ -101,52 +103,62 @@ public class Database {
             TeacherDao.Create();
             System.out.println("Created table 'teachers'");
             dao = new TeacherDao();
-            dao.save(new Teacher("Andrey", "Durdunov"));
-            dao.save(new Teacher("Sanya", "Spektr"));
-            dao.save(new Teacher("Vova", "Lysyi"));
+            dao.save(new Teacher("Алла", "Горькова"));
+            dao.save(new Teacher("Спектр", "Спекторский"));
+            dao.save(new Teacher("Виктор", "Янукович"));
+            dao.save(new Teacher("Юлия", "Тимошенко"));
 
             DisciplineDao.Create();
             System.out.println("Created table 'discipline'");
             dao = new DisciplineDao();
             dao.save(new Discipline("Math", 48, new DisciplineType(DisciplineType.GetDisciplines().get(0)), new SpecialityDao().getAll().get(0)));
             dao.save(new Discipline("Math", 24, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("C++", 48, new DisciplineType(DisciplineType.GetDisciplines().get(0)), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("C++", 16, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(0)));
+            dao.save(new Discipline("Algorithm", 42, new DisciplineType(DisciplineType.GetDisciplines().get(0)), new SpecialityDao().getAll().get(1)));
+            dao.save(new Discipline("Algorithm", 20, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(1)));
             dao.save(new Discipline("Physics", 16, new DisciplineType(DisciplineType.GetDisciplines().get(2)), new SpecialityDao().getAll().get(1)));
-            dao.save(new Discipline("Ukrmova", 15, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(1)));
+            dao.save(new Discipline("Ukrainian", 15, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(2)));
+            dao.save(new Discipline("English", 48, new DisciplineType(DisciplineType.GetDisciplines().get(0)), new SpecialityDao().getAll().get(2)));
+            dao.save(new Discipline("English", 36, new DisciplineType(DisciplineType.GetDisciplines().get(1)), new SpecialityDao().getAll().get(2)));
 
             TeacherDisciplineDao.Create();
             System.out.println("Created table 'teacher_discipline'");
             dao = new TeacherDisciplineDao();
-            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(0)));
-            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(1)));
-            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(2)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(0)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(1)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(5)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(2), new DisciplineDao().getAll().get(4)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(6)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(1), new DisciplineDao().getAll().get(7)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(3), new DisciplineDao().getAll().get(6)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(0), new DisciplineDao().getAll().get(7)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(3), new DisciplineDao().getAll().get(8)));
+            dao.save(new TeacherDiscipline(new TeacherDao().getAll().get(3), new DisciplineDao().getAll().get(9)));
 
             AuditoriumDao.Create();
             System.out.println("Created table 'auditorium'");
             dao = new AuditoriumDao();
-            dao.save(new Auditorium(513, 25, AuditoriumType.GetAuditoriums().get(0)));
-            dao.save(new Auditorium(409, 20, AuditoriumType.GetAuditoriums().get(0)));
-            dao.save(new Auditorium(2, 200, AuditoriumType.GetAuditoriums().get(1)));
-            dao.save(new Auditorium(1, 250, AuditoriumType.GetAuditoriums().get(1)));
+            dao.save(new Auditorium(513, 25, AuditoriumType.GetAuditoriums().get(1)));
+            dao.save(new Auditorium(514, 25, AuditoriumType.GetAuditoriums().get(1)));
+            dao.save(new Auditorium(409, 20, AuditoriumType.GetAuditoriums().get(1)));
+            dao.save(new Auditorium(2, 200, AuditoriumType.GetAuditoriums().get(0)));
+            dao.save(new Auditorium(1, 250, AuditoriumType.GetAuditoriums().get(0)));
+            dao.save(new Auditorium(3, 250, AuditoriumType.GetAuditoriums().get(0)));
 
             GroupTeacherDisciplineDao.Create();
             System.out.println("Created table 'group_teacher_discipline'");
             dao = new GroupTeacherDisciplineDao();
             dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(0)));
             dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(1)));
-            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(0), new TeacherDisciplineDao().getAll().get(2)));
-            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(1), new TeacherDisciplineDao().getAll().get(2)));
-            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(1), new TeacherDisciplineDao().getAll().get(0)));
-            dao.save(new GroupTeacherDiscipline(new GroupDao().getAll().get(1), new TeacherDisciplineDao().getAll().get(1)));
 
             TimetableDao.Create();
             System.out.println("Created table 'timetable'");
             dao = new TimetableDao();
             dao.save(new Timetable(1, 0,0, new AuditoriumDao().getAll().get(0), new GroupTeacherDisciplineDao().getAll().get(0)));
             dao.save(new Timetable(1, 0,1, new AuditoriumDao().getAll().get(1), new GroupTeacherDisciplineDao().getAll().get(1)));
-            dao.save(new Timetable(1, 0,4, new AuditoriumDao().getAll().get(2), new GroupTeacherDisciplineDao().getAll().get(2)));
             dao.save(new Timetable(1, 1,1, new AuditoriumDao().getAll().get(1), new GroupTeacherDisciplineDao().getAll().get(0)));
             dao.save(new Timetable(1, 2,1, new AuditoriumDao().getAll().get(2), new GroupTeacherDisciplineDao().getAll().get(1)));
-            dao.save(new Timetable(1, 1,3, new AuditoriumDao().getAll().get(0), new GroupTeacherDisciplineDao().getAll().get(2)));
             new TimetableDao().getAllDays(1, new GroupDao().getAll().get(0));
 //            dao.getAll().forEach(obj -> {
 //                Timetable tmtbl = (Timetable)obj;

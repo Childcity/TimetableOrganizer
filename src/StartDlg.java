@@ -106,7 +106,7 @@ public class StartDlg extends JDialog {
     }
 
     private void onOK() {
-
+        dispose();
     }
 
     private void onCancel() {

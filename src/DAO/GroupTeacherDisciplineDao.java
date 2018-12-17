@@ -36,6 +36,14 @@ public class GroupTeacherDisciplineDao implements Dao<GroupTeacherDiscipline>, D
                     "WHERE id='%d';", groupId, teacherDisciplineId, id);
         }
         static String DELETE(long id){ return String.format("DELETE FROM `group_teacher_discipline` WHERE id = '%d'", id); }
+        static String SELECT_FOR_GROUP(long group_id){
+            return String.format(
+                    "SELECT gtd.id, gtd.group_id, gtd.teacher_discipline_id\n" +
+                    "FROM group_teacher_discipline gtd\n" +
+                    "  INNER JOIN teacher_discipline discipline on gtd.teacher_discipline_id = discipline.id\n" +
+                    "  INNER JOIN discipline d on discipline.discipline_id = d.id\n" +
+                    "WHERE gtd.group_id = '%d' AND d.speciality_id = (SELECT speciality_id FROM `group` g WHERE g.id = '%d');", group_id, group_id);
+        }
     }
 
     private Dao groupDao;
@@ -142,5 +150,17 @@ public class GroupTeacherDisciplineDao implements Dao<GroupTeacherDiscipline>, D
         } catch (Exception e) {
             System.out.println("GroupTeacherDisciplineDao.delete fail: " + e.getMessage());
         }
+    }
+
+    public List<GroupTeacherDiscipline> getAllForGroup(Group group) {
+        List<GroupTeacherDiscipline> groupTeacherDisciplines = new ArrayList<>();
+
+        try {
+            groupTeacherDisciplines = Database.getInstance().ExecuteReadQuery(this, SqlQuery.SELECT_FOR_GROUP(group.getId()));
+        } catch (Exception e) {
+            System.out.println("GroupTeacherDisciplineDao.getAllForGroup fail: " + e.getMessage());
+        }
+
+        return groupTeacherDisciplines;
     }
 }

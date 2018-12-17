@@ -99,6 +99,12 @@ public class TimetableDao implements Dao<Timetable>{
     @Override
     public void save(Timetable timetable) {
         try {
+            if(timetable.getLesson() == -1 || timetable.getDay() == -1 || timetable.getWeek() == -1
+                    || timetable.getAuditorium().toString().equals("")
+                    || timetable.getGroupTeacherDiscipline().toString().equals("")){
+                return;
+            }
+
             if(timetable.getId() != -1){
                 update(timetable, new String[]{timetable.getId()+"", timetable.getWeek()+"", timetable.getDay()+"", timetable.getLesson()+"",
                         timetable.getAuditorium().getId()+"", timetable.getGroupTeacherDiscipline().getId()+""});
@@ -163,10 +169,10 @@ public class TimetableDao implements Dao<Timetable>{
                         }
                     }
                     lessons.add(lesson);
-                    System.out.println("lesNum: " + lesson.getLessonNumber()
-                            +"\nlesAudNumber" + lesson.getAuditorium().getAuditNumber()
-                            +"\nlesGr" + lesson.getGroupTeacherDiscipline().getGroup().getGroupName()
-                    );
+//                    System.out.println("lesNum: " + lesson.getLessonNumber()
+//                            +"\nlesAudNumber" + lesson.getAuditorium().getAuditNumber()
+//                            +"\nlesGr" + lesson.getGroupTeacherDiscipline().getGroup().getGroupName()
+//                    );
                 }
                 dayList.add(new Day(day, week, lessons));
             } catch (Exception e) {

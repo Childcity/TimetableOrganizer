@@ -1,17 +1,12 @@
-import DAO.AuditoriumDao;
-import DAO.GroupDao;
-import DAO.GroupTeacherDisciplineDao;
-import DAO.TimetableDao;
+import DAO.*;
 import Data.*;
-import TableModels.ComboBoxCellRenderer;
+import TableModels.ComboBoxListRenderer;
+import TableModels.LessonData;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Vector;
 
 public class TimetableEditor extends JDialog {
     private static final int WINDOW_WIDTH = 1500;
@@ -20,8 +15,8 @@ public class TimetableEditor extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
     private JButton openDbCreatorButton;
-    private JButton specialitiesButton;
     private JButton saveChangesButton;
+    private JPanel timetableBasePanel;
     private JPanel timetablePanel;
     private JComboBox weekComboBox;
     private JComboBox groupComboBox;
@@ -52,6 +47,7 @@ public class TimetableEditor extends JDialog {
             dbCreator.pack();
             dbCreator.setVisible(true);
             updateGroupComboBox();
+            initTimetable();
         });
 
         groupComboBox.addActionListener(e -> {
@@ -62,7 +58,10 @@ public class TimetableEditor extends JDialog {
             initTimetable();
         });
 
+        saveChangesButton.addActionListener(e -> saveTimetable());
+
         updateGroupComboBox();
+        //initTimetable();
     }
 
     private void onOK() {
@@ -83,11 +82,13 @@ public class TimetableEditor extends JDialog {
         groupComboBox.setModel(model);
         if(groupNames.length > 0)
             groupComboBox.setSelectedIndex(0);
-        initTimetable();
     }
 
     private void createUIComponents() {
         timetablePanel = new JPanel(new GridLayout(2, 6));
+        JScrollPane scrollPane = new JScrollPane(timetablePanel);
+        timetableBasePanel = new JPanel(new GridLayout());
+        timetableBasePanel.add(scrollPane);
     }
 
     private void initTimetable(){
@@ -104,8 +105,8 @@ public class TimetableEditor extends JDialog {
 
         List<Day> dayList = new TimetableDao().getAllDays(weekComboBox.getSelectedIndex()+1, selectedGroup);
 
-        JPanel dayPanel = null;
-        JPanel lessonPanel = null;
+        JPanel dayPanel;
+        JPanel lessonPanel;
         for (int day = 0; day < 6; day++){
             dayPanel = new JPanel();
             dayPanel.setLayout(new BoxLayout(dayPanel, BoxLayout.Y_AXIS));
@@ -113,12 +114,12 @@ public class TimetableEditor extends JDialog {
             for (int less = 0; less < 5; less++){
                 Lesson lesson = dayList.get(day).getLessons().get(less);
                 lessonPanel = new JPanel(new GridLayout(1, 2));
-                lessonPanel.setBorder(BorderFactory.createTitledBorder(
+                lessonPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(),
                         "<html>Lesson: " + (lesson.getLessonNumber() + 1) + "<br/>"
                         + lesson.getLessonTime()[0] + "-" + lesson.getLessonTime()[1] + "</html>"));
 
-                JComboBox auditJComboBox = buildAuditoriumComboBox(lesson.getAuditorium());
-                JComboBox grTchDisComboBox = buildGrTchDisComboBox(lesson.getGroupTeacherDiscipline());
+                JComboBox auditJComboBox = buildAuditoriumComboBox(lesson);
+                JComboBox grTchDisComboBox = buildGrTchDisComboBox(lesson, selectedGroup);
                 lessonPanel.add(auditJComboBox, 0);
                 lessonPanel.add(grTchDisComboBox, 1);
 
@@ -126,9 +127,12 @@ public class TimetableEditor extends JDialog {
             }
             timetablePanel.add(dayPanel);
         }
+
+        timetablePanel.revalidate();
     }
 
-    private JComboBox buildAuditoriumComboBox(Auditorium existedAudit){
+    private JComboBox buildAuditoriumComboBox(Lesson lesson){
+        Auditorium existedAudit = lesson.getAuditorium();
         List<Auditorium> auditoriums = new AuditoriumDao().getAll();
         auditoriums.add(new Auditorium()); //Empty audit
 
@@ -144,12 +148,14 @@ public class TimetableEditor extends JDialog {
 
         JComboBox auditJComboBox = new JComboBox(auditoriumObjects);
         auditJComboBox.setSelectedIndex(indexToSelect);
+        auditJComboBox.setRenderer(new ComboBoxListRenderer(lesson));
 
         return auditJComboBox;
     }
 
-    private JComboBox buildGrTchDisComboBox(GroupTeacherDiscipline existed){
-        List<GroupTeacherDiscipline> grTchDis = new GroupTeacherDisciplineDao().getAll();
+    private JComboBox buildGrTchDisComboBox(Lesson lesson, Group selectedGroup){
+        GroupTeacherDiscipline existed = lesson.getGroupTeacherDiscipline();
+        List<GroupTeacherDiscipline> grTchDis = new GroupTeacherDisciplineDao().getAllForGroup(selectedGroup);
         grTchDis.add(new GroupTeacherDiscipline()); //Empty audit
 
         Object[] auditoriumObjects= new Object[grTchDis.size()];
@@ -164,7 +170,40 @@ public class TimetableEditor extends JDialog {
 
         JComboBox buildGrTchDis = new JComboBox(auditoriumObjects);
         buildGrTchDis.setSelectedIndex(indexToSelect);
+        buildGrTchDis.setRenderer(new ComboBoxListRenderer(lesson));
 
         return buildGrTchDis;
+    }
+
+    private void saveTimetable(){
+        int week = weekComboBox.getSelectedIndex() + 1;
+
+        TimetableDao timetableDao = new TimetableDao();
+        Timetable timetable;
+        JPanel dayPanel;
+        JPanel lessonPanel;
+        for (int day = 0; day < timetablePanel.getComponentCount(); day++){
+            dayPanel = (JPanel) timetablePanel.getComponent(day);
+            for (int less = 0; less < dayPanel.getComponentCount(); less++){
+                lessonPanel = (JPanel) dayPanel.getComponent(less);
+
+                JComboBox auditComboBox = (JComboBox) lessonPanel.getComponent(0);
+                JComboBox grTchDisComboBox = (JComboBox) lessonPanel.getComponent(1);
+
+                Lesson lesson = ((LessonData)auditComboBox.getRenderer()).getConnectedLesson();
+                lesson.setAuditorium((Auditorium)auditComboBox.getSelectedItem());
+                lesson.setGroupTeacherDiscipline((GroupTeacherDiscipline) grTchDisComboBox.getSelectedItem());
+
+                timetable = new Timetable(lesson.getTimetableId(), week, day, less, lesson.getAuditorium(), lesson.getGroupTeacherDiscipline() );
+                if(timetable.getId() != -1 ){
+                    if(timetable.getAuditorium().toString().equals("") || timetable.getGroupTeacherDiscipline().toString().equals("")){
+                        timetableDao.delete(timetable);
+                    }
+                }
+
+                timetableDao.save(timetable);
+                //System.out.println(timetable.getId() + " " + timetable.getWeek() + " " + timetable.getDay() + " " + timetable.getLesson() + " " + timetable.getAuditorium() + timetable.getGroupTeacherDiscipline());
+            }
+        }
     }
 }

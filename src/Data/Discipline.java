@@ -69,6 +69,6 @@ public class Discipline {
         if(disName_.equals("") || disType_.getType().equals("")){
             return "";
         }
-        return getDisName() + "-" + getDisType();
+        return getDisName() + "-" + getDisType() + "(" + getSpeciality() + ")";
     }
 }
