@@ -123,10 +123,12 @@ public class DisciplineTableModel extends AbstractTableModel implements TableDat
         for (int i = 0; i < disciplines.size(); i++){
             if(i != rowIndex) {
                 if (disciplines.get(i).getDisName().equals(newDiscipline)) {
-                    //JOptionPane.showMessageDialog(null, disciplines.get(i).getDisType().getType() + " " + disciplines.get(rowIndex).getDisType().getType());
-                    if(disciplines.get(i).getDisType().equals(disciplines.get(rowIndex).getDisType())){
-                        JOptionPane.showMessageDialog(null, "Two Disciplines have the same Type!");
-                        return false;
+                    if(disciplines.get(i).getSpeciality().getId() == disciplines.get(rowIndex).getSpeciality().getId()){
+                        //JOptionPane.showMessageDialog(null, disciplines.get(i).getDisType().getType() + " " + disciplines.get(rowIndex).getDisType().getType());
+                        if(disciplines.get(i).getDisType().equals(disciplines.get(rowIndex).getDisType())){
+                            JOptionPane.showMessageDialog(null, "Two Disciplines have the same Type!");
+                            return false;
+                        }
                     }
                 }
             }
@@ -138,10 +140,12 @@ public class DisciplineTableModel extends AbstractTableModel implements TableDat
         for (int i = 0; i < disciplines.size(); i++){
             if(i != rowIndex) {
                 if(disciplines.get(i).getDisType().equals(newDisciplineType)){
-                    if (disciplines.get(i).getDisName().equals(disciplines.get(rowIndex).getDisName())) {
-                        //JOptionPane.showMessageDialog(null, disciplines.get(i).getDisType().getType() + " " + disciplines.get(rowIndex).getDisType().getType());
-                        JOptionPane.showMessageDialog(null, "Two Types have the same Discipline!");
-                        return false;
+                    if(disciplines.get(i).getSpeciality().getId() == disciplines.get(rowIndex).getSpeciality().getId()) {
+                        if (disciplines.get(i).getDisName().equals(disciplines.get(rowIndex).getDisName())) {
+                            //JOptionPane.showMessageDialog(null, disciplines.get(i).getDisType().getType() + " " + disciplines.get(rowIndex).getDisType().getType());
+                            JOptionPane.showMessageDialog(null, "Two Types have the same Discipline!");
+                            return false;
+                        }
                     }
                 }
             }
