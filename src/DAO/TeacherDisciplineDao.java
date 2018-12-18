@@ -1,5 +1,6 @@
 package DAO;
 
+import Data.Group;
 import Data.Teacher;
 import Data.TeacherDiscipline;
 import Data.Discipline;
@@ -36,6 +37,14 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
                     "WHERE id='%d';", teacherId, disciplineId, id);
         }
         static String DELETE(long id){ return String.format("DELETE FROM `teacher_discipline` WHERE id = '%d'", id); }
+
+        static String SELECT_FOR_GROUP(long group_id) {
+            return String.format(
+                    "SELECT td.id, teacher_id, discipline_id\n" +
+                    "FROM teacher_discipline td\n" +
+                    "  INNER JOIN discipline d on td.discipline_id = d.id\n" +
+                    "WHERE speciality_id = (SELECT \"group\".speciality_id FROM main.\"group\" WHERE \"group\".id = '%d');", group_id);
+        }
     }
 
     private Dao teacherDao;
@@ -140,5 +149,18 @@ public class TeacherDisciplineDao implements Dao<TeacherDiscipline>, Database.Qu
         } catch (Exception e) {
             System.out.println("TeacherDisciplineDao.delete fail: " + e.getMessage());
         }
+    }
+
+
+    public List<TeacherDiscipline> getAllForGroup(Group group) {
+        List<TeacherDiscipline> teacherDisciplines = new ArrayList<>();
+
+        try {
+            teacherDisciplines = Database.getInstance().ExecuteReadQuery(this, SqlQuery.SELECT_FOR_GROUP(group.getId()));
+        } catch (Exception e) {
+            System.out.println("TeacherDisciplineDao.getAllForGroup fail: " + e.getMessage());
+        }
+
+        return teacherDisciplines;
     }
 }

@@ -180,7 +180,8 @@ public class DatabaseCreator extends JDialog implements ActionListener{
             editableTable.setDefaultRenderer(Group.class, new ComboBoxCellRenderer<>());
             editableTable.setDefaultEditor(Group.class, new ComboBoxCellEditor<>(new GroupDao().getAll()));
             editableTable.setDefaultRenderer(TeacherDiscipline.class, new ComboBoxCellRenderer<>());
-            editableTable.setDefaultEditor(TeacherDiscipline.class, new ComboBoxCellEditor<>(new TeacherDisciplineDao().getAll()));
+            editableTable.setDefaultEditor(TeacherDiscipline.class,
+                    new TeacherDisciplineComboBoxCellEditor(editableTable.getModel()));
             editableTable.getColumnModel().getColumn(2).setPreferredWidth(130);
         }
 

@@ -39,4 +39,14 @@ public class AuditoriumType {
     public String toString() {
         return getType();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (! (obj instanceof AuditoriumType))
+            return false;
+        if (obj == this)
+            return true;
+        return this.getType().equals(((AuditoriumType) obj).getType());
+    }
 }

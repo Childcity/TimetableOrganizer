@@ -198,12 +198,46 @@ public class TimetableEditor extends JDialog {
                 if(timetable.getId() != -1 ){
                     if(timetable.getAuditorium().toString().equals("") || timetable.getGroupTeacherDiscipline().toString().equals("")){
                         timetableDao.delete(timetable);
+                        continue;
                     }
                 }
 
-                timetableDao.save(timetable);
+                if(! (timetable.getAuditorium().toString().equals("") || timetable.getGroupTeacherDiscipline().toString().equals(""))){
+                    if(! checkInputData(timetable)){
+                        return;
+                    }
+
+                    timetableDao.save(timetable);
+                }
+
                 //System.out.println(timetable.getId() + " " + timetable.getWeek() + " " + timetable.getDay() + " " + timetable.getLesson() + " " + timetable.getAuditorium() + timetable.getGroupTeacherDiscipline());
             }
         }
+    }
+
+    private boolean checkInputData(Timetable newTimetable){
+        List<Group> groups = new GroupDao().getAll();
+
+        for (Group group : groups) {
+            if (group.getId() != newTimetable.getGroupTeacherDiscipline().getGroup().getId()) {
+                List<Day> allDays = new TimetableDao().getAllDays(newTimetable.getWeek(), group);
+                Day otherGroupDay = allDays.get(newTimetable.getDay());
+                Lesson otherGroupLesson = otherGroupDay.getLessons().get(newTimetable.getLesson());
+                if(otherGroupLesson.getTimetableId() != -1){
+                    //if auditoriums the same and lesson is not a Lection -> show message
+                    if(otherGroupLesson.getAuditorium().getId() == newTimetable.getAuditorium().getId()
+                            && (! otherGroupLesson.getAuditorium().getAuditType().equals(AuditoriumType.GetAuditoriums().get(0)))){
+                        JOptionPane.showMessageDialog(null,
+                                "<html>Conflict with " + newTimetable.getAuditorium() + ": <br/>"
+                                + "group: " + newTimetable.getGroupTeacherDiscipline().getGroup().getGroupName() + " - " +group.getGroupName()
+                                + "<br/>day: " + Day.GetDayNames().get(newTimetable.getDay())
+                                + "<br/>lesson: " + (newTimetable.getLesson() + 1) + "</html>");
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 }
